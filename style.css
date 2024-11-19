@@ -10,7 +10,31 @@ body {
     padding: 0;
 }
 
-/* Container central avec un padding plus adapté à l'écran mobile */
+/* Barre fixe pour le score */
+.score-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score-bar .slider-container {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.score-bar input[type="range"] {
+    width: 100%;
+}
+
+/* Ajouter un espace en haut pour éviter que le contenu soit caché */
 .container {
     text-align: center;
     background-color: white;
@@ -18,32 +42,48 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px; /* Limiter la largeur du conteneur pour les petits écrans */
+    max-width: 400px; /* Limiter la largeur du conteneur */
+    padding-top: 80px; /* Espacement pour la barre fixe */
 }
 
-/* Largeur du curseur pour les appareils mobiles */
-#scoreSlider {
-    width: 90%; /* Le curseur utilise presque toute la largeur disponible */
-    margin: 10px 0;
+/* Boutons organisés en grille */
+.category {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes de largeur égale */
+    gap: 10px; /* Espacement entre les boutons */
+    margin-bottom: 20px; /* Espacement entre chaque catégorie */
 }
 
-/* Boutons plus grands pour une utilisation tactile facile */
 .noteButton, .lifeButton, .buttons button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 15px 25px;
-    margin: 10px;
-    font-size: 18px; /* Augmenter la taille de la police sur mobile */
-    cursor: pointer;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
     border-radius: 10px;
+    cursor: pointer;
     transition: background-color 0.3s;
-    width: 100%; /* Boutons prennent toute la largeur de l'écran */
+    width: 100%; /* Boutons s'adaptent à leur colonne */
+    box-sizing: border-box; /* Prend en compte padding et bordures */
 }
 
-/* Ajouter des ombres au survol pour améliorer l'interactivité tactile */
+/* Ajouter des ombres au survol */
 .noteButton:hover, .lifeButton:hover, .buttons button:hover {
     background-color: #45a049;
+}
+
+/* Curseur pour afficher le score */
+#scoreSlider {
+    width: 90%;
+    margin: 10px 0;
+}
+
+/* Message dynamique */
+.slider-message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: green;
 }
 
 /* Pour les petits écrans (mobiles ou tablettes) */
@@ -54,5 +94,18 @@ body {
 
     .slider-message {
         font-size: 16px; /* Adapter la taille du texte du message */
+    }
+
+    /* Barre fixe pour les petits écrans */
+    .score-bar {
+        padding: 8px 15px; /* Réduire légèrement le padding */
+    }
+
+    .score-bar .slider-container {
+        margin-left: 10px; /* Réduire l'espace entre texte et curseur */
+    }
+
+    .container {
+        padding-top: 90px; /* Ajuste l'espacement en haut */
     }
 }

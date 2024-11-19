@@ -7,20 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Jeu de Score</h1>
+    <!-- Barre fixe pour afficher le score -->
+    <div class="score-bar">
         <p>Score actuel : <span id="score">10</span> points</p>
-
-        <!-- Curseur pour afficher le score -->
         <div class="slider-container">
             <input type="range" id="scoreSlider" min="-10" max="25" value="10" step="1">
             <span id="sliderValue">10</span> points
         </div>
+    </div>
 
-        <!-- Zone pour afficher le message dynamique -->
-        <div id="sliderMessage" class="slider-message">Normal</div>
+    <div class="container">
+        <h1>Aie-Score</h1>
 
-        <!-- Catégorie Notes -->
+        <!-- Reste du contenu -->
+        <!-- Notes -->
         <div class="category">
             <h2>Notes</h2>
             <button class="noteButton" data-points="4">Entre 18 et 20</button>
@@ -32,7 +32,7 @@
             <button class="noteButton" data-points="-4">Entre 0 et 5</button>
         </div>
 
-        <!-- Catégorie Vie courante -->
+        <!-- Vie courante -->
         <div class="category">
             <h2>Vie courante</h2>
             <button class="lifeButton" data-points="-1">Oubli d'affaires</button>
@@ -41,7 +41,7 @@
             <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
         </div>
 
-        <!-- Bouton pour réinitialiser le score -->
+        <!-- Réinitialisation -->
         <div class="buttons">
             <button id="resetScore">Réinitialiser le score</button>
         </div>
