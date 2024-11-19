@@ -1,5 +1,5 @@
 // Charger le score depuis le localStorage, sinon utiliser la valeur par défaut de 10
-let score = localStorage.getItem('score') ? parseInt(localStorage.getItem('score')) : 10;
+//let score = localStorage.getItem('score') ? parseInt(localStorage.getItem('score')) : 10;
 
 // Récupérer les éléments du DOM
 const scoreElement = document.getElementById('score');
