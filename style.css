@@ -1,0 +1,58 @@
+/* Assurer que le site utilise toute la largeur de l'écran */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Utilise toute la hauteur de l'écran */
+    background-color: #f0f0f0;
+    margin: 0; /* Enlever les marges par défaut */
+    padding: 0;
+}
+
+/* Container central avec un padding plus adapté à l'écran mobile */
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Limiter la largeur du conteneur pour les petits écrans */
+}
+
+/* Largeur du curseur pour les appareils mobiles */
+#scoreSlider {
+    width: 90%; /* Le curseur utilise presque toute la largeur disponible */
+    margin: 10px 0;
+}
+
+/* Boutons plus grands pour une utilisation tactile facile */
+.noteButton, .lifeButton, .buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 18px; /* Augmenter la taille de la police sur mobile */
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    width: 100%; /* Boutons prennent toute la largeur de l'écran */
+}
+
+/* Ajouter des ombres au survol pour améliorer l'interactivité tactile */
+.noteButton:hover, .lifeButton:hover, .buttons button:hover {
+    background-color: #45a049;
+}
+
+/* Pour les petits écrans (mobiles ou tablettes) */
+@media (max-width: 768px) {
+    .category h2 {
+        font-size: 1.4em; /* Ajuster la taille du titre pour les petits écrans */
+    }
+
+    .slider-message {
+        font-size: 16px; /* Adapter la taille du texte du message */
+    }
+}

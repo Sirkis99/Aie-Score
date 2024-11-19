@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Score</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Jeu de Score</h1>
+        <p>Score actuel : <span id="score">10</span> points</p>
+
+        <!-- Curseur pour afficher le score -->
+        <div class="slider-container">
+            <input type="range" id="scoreSlider" min="-10" max="25" value="10" step="1">
+            <span id="sliderValue">10</span> points
+        </div>
+
+        <!-- Zone pour afficher le message dynamique -->
+        <div id="sliderMessage" class="slider-message">Normal</div>
+
+        <!-- Catégorie Notes -->
+        <div class="category">
+            <h2>Notes</h2>
+            <button class="noteButton" data-points="4">Entre 18 et 20</button>
+            <button class="noteButton" data-points="2">Entre 16 et 18</button>
+            <button class="noteButton" data-points="1">Entre 15 et 16</button>
+            <button class="noteButton" data-points="-1">Entre 12 et 14</button>
+            <button class="noteButton" data-points="-2">Entre 10 et 12</button>
+            <button class="noteButton" data-points="-3">Entre 5 et 10</button>
+            <button class="noteButton" data-points="-4">Entre 0 et 5</button>
+        </div>
+
+        <!-- Catégorie Vie courante -->
+        <div class="category">
+            <h2>Vie courante</h2>
+            <button class="lifeButton" data-points="-1">Oubli d'affaires</button>
+            <button class="lifeButton" data-points="1">Retrouvé le lendemain</button>
+            <button class="lifeButton" data-points="-1">Non retrouvé</button>
+            <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
+        </div>
+
+        <!-- Bouton pour réinitialiser le score -->
+        <div class="buttons">
+            <button id="resetScore">Réinitialiser le score</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
