@@ -79,56 +79,5 @@ scoreSlider.addEventListener('input', () => {
 // Initialisation du score sur la page
 updateScore();
 
-// Variables pour gérer le nom d'utilisateur et les scores
-let username = localStorage.getItem('currentUser') || ''; // Charger le dernier utilisateur connecté
-let userScores = JSON.parse(localStorage.getItem('userScores')) || {}; // Charger les scores de tous les utilisateurs
 
-// Récupérer les éléments pour la gestion de l'utilisateur
-const usernameInput = document.getElementById('username');
-const saveUserButton = document.getElementById('saveUser');
-
-// Fonction pour charger le score de l'utilisateur
-function loadUserScore() {
-    if (username && userScores[username] !== undefined) {
-        score = userScores[username]; // Charger le score de l'utilisateur
-    } else {
-        score = 10; // Score par défaut si l'utilisateur est nouveau
-    }
-    updateScore(); // Mettre à jour l'affichage
-}
-
-// Sauvegarder le score pour l'utilisateur actuel
-function saveUserScore() {
-    userScores[username] = score; // Associer le score au nom d'utilisateur
-    localStorage.setItem('userScores', JSON.stringify(userScores)); // Sauvegarder les scores dans le localStorage
-}
-
-// Gestion de la connexion de l'utilisateur
-saveUserButton.addEventListener('click', () => {
-    username = usernameInput.value.trim(); // Récupérer le nom saisi
-    if (username) {
-        localStorage.setItem('currentUser', username); // Sauvegarder l'utilisateur actif
-        loadUserScore(); // Charger le score correspondant
-        alert(`Bienvenue, ${username} !`);
-    } else {
-        alert("Veuillez entrer un nom d'utilisateur.");
-    }
-});
-
-// Mise à jour du score lors des modifications
-function updateScore() {
-    scoreElement.textContent = score;
-    scoreSlider.value = score; // Mettre à jour la position du curseur
-    sliderValue.textContent = score; // Afficher la valeur actuelle du score à côté du curseur
-    updateSliderMessage(score); // Mettre à jour le message en fonction du score
-    saveUserScore(); // Sauvegarder le score
-}
-
-// Charger le dernier utilisateur et son score au démarrage
-if (username) {
-    usernameInput.value = username; // Pré-remplir le champ avec le dernier nom d'utilisateur
-    loadUserScore(); // Charger le score associé
-} else {
-    updateScore(); // Mettre à jour avec un score par défaut si aucun utilisateur
-}
 
