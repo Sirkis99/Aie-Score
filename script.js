@@ -115,7 +115,8 @@ initScoreButton.addEventListener('click', () => {
 // Réinitialiser le score avec affichage du champ d'initialisation
 resetScoreButton.addEventListener('click', () => {
     scoreInitialized = false;
-    scoreInitContainer.classList.remove('hidden');
+    scoreInitContainer.classList.remove('hidden'); // Afficher la zone d'initialisation
+    scoreInitInput.value = ''; // Réinitialiser l'input pour éviter les valeurs résiduelles
 });
 
 // Synchroniser le curseur avec le score
@@ -126,3 +127,6 @@ scoreSlider.addEventListener('input', () => {
 
 // Masquer les sous-menus au chargement
 categories.forEach(category => category.classList.add('hidden'));
+
+// Masquer la zone de réinitialisation au chargement
+scoreInitContainer.classList.add('hidden');
