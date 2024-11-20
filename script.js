@@ -9,6 +9,7 @@ const sliderValue = document.getElementById('sliderValue');
 const sliderMessage = document.getElementById('sliderMessage');
 const initialScoreInput = document.getElementById('initialScore');
 const setInitialScoreButton = document.getElementById('setInitialScore');
+const scoreInitContainer = document.getElementById('scoreInitContainer');
 
 // Boutons pour afficher les sous-menus
 const showNotesButton = document.getElementById('showNotes');
@@ -65,28 +66,13 @@ showLifeButton.addEventListener('click', () => {
     notesMenu.classList.add('hidden');
 });
 
-// Initialiser le score
-setInitialScoreButton.addEventListener('click', () => {
-    const initialScore = parseInt(initialScoreInput.value, 10);
-    if (!isNaN(initialScore)) {
-        score = initialScore;
+// Ajouter des événements sur les boutons des sous-menus
+document.querySelectorAll('.noteButton, .lifeButton').forEach(button => {
+    button.addEventListener('click', () => {
+        const points = parseInt(button.getAttribute('data-points'));
+        score += points;
         updateScore();
-    } else {
-        alert("Veuillez entrer un score valide.");
-    }
+    });
 });
 
-// Réinitialiser le score
-resetScoreButton.addEventListener('click', () => {
-    score = 10;
-    updateScore();
-});
-
-// Synchroniser le curseur
-scoreSlider.addEventListener('input', () => {
-    score = parseInt(scoreSlider.value);
-    updateScore();
-});
-
-// Initialisation
-updateScore();
+// Aff

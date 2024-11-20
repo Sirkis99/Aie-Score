@@ -10,13 +10,6 @@
     <div class="container">
         <h1>Jeu de Score</h1>
 
-        <!-- Initialisation du score -->
-        <div class="score-init">
-            <label for="initialScore">Score initial :</label>
-            <input type="number" id="initialScore" placeholder="Entrez un score" value="10">
-            <button id="setInitialScore">Initialiser</button>
-        </div>
-
         <!-- Affichage du score -->
         <p>Score actuel : <span id="score">10</span> points</p>
 
@@ -55,9 +48,16 @@
             <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
         </div>
 
-        <!-- Bouton pour réinitialiser le score -->
+        <!-- Réinitialiser le score -->
         <div class="buttons">
             <button id="resetScore">Réinitialiser le score</button>
+        </div>
+
+        <!-- Champ pour initialiser le score (initialement masqué) -->
+        <div id="scoreInitContainer" class="hidden">
+            <label for="initialScore">Score initial :</label>
+            <input type="number" id="initialScore" placeholder="Entrez un score">
+            <button id="setInitialScore">Confirmer</button>
         </div>
     </div>
 

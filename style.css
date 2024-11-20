@@ -1,38 +1,119 @@
-.hidden {
-    display: none;
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
 }
 
-/* Ajustements pour les boutons principaux */
-.main-buttons button {
-    width: 100%; /* Occuper toute la largeur */
-    margin-bottom: 10px;
-    padding: 15px;
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Style du score et du curseur */
+.slider-container {
+    margin: 20px 0;
+}
+
+#scoreSlider {
+    width: 90%;
+    margin: 10px 0;
+}
+
+.slider-message {
     font-size: 18px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    margin-top: 10px;
 }
 
-.main-buttons button:hover {
-    background-color: #0056b3;
-}
-
-/* Sous-menus (boutons des catégories) */
-.category button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
+/* Boutons principaux */
+.main-buttons button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 18px;
     cursor: pointer;
+    border-radius: 10px;
     transition: background-color 0.3s;
+    width: 100%;
+}
+
+.main-buttons button:hover {
+    background-color: #45a049;
+}
+
+/* Sous-menus */
+.category {
+    margin-top: 20px;
+}
+
+.category.hidden {
+    display: none;
+}
+
+.category button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    width: 100%;
 }
 
 .category button:hover {
-    background-color: #45a049;
+    background-color: #007B9E;
+}
+
+/* Champ de réinitialisation du score */
+#scoreInitContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#scoreInitContainer.hidden {
+    display: none;
+}
+
+#scoreInitContainer input {
+    width: 80px;
+    padding: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+#scoreInitContainer button {
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+/* Adaptation pour les petits écrans */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .slider-message {
+        font-size: 16px;
+    }
+
+    .main-buttons button,
+    .category button {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
 }
