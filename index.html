@@ -9,26 +9,29 @@
 <body>
     <div class="container">
         <h1>Jeu de Score</h1>
+        <p>Score actuel : <span id="score">0</span> points</p>
 
-        <!-- Affichage du score -->
-        <p>Score actuel : <span id="score">10</span> points</p>
-
-        <!-- Curseur pour afficher le score -->
-        <div class="slider-container">
-            <input type="range" id="scoreSlider" min="-10" max="25" value="10" step="1">
-            <span id="sliderValue">10</span> points
+        <div id="scoreSliderContainer">
+            <input type="range" id="scoreSlider" min="-10" max="25" value="0" step="1">
+            <span id="sliderValue">0</span> points
         </div>
 
-        <!-- Zone pour afficher le message dynamique -->
         <div id="sliderMessage" class="slider-message">Normal</div>
+
+        <!-- Zone pour initialiser le score -->
+        <div id="scoreInitContainer" class="hidden">
+            <label for="scoreInit">Entrez le score initial :</label>
+            <input type="number" id="scoreInit">
+            <button id="initScore">Initialiser le score</button>
+        </div>
 
         <!-- Boutons principaux -->
         <div class="main-buttons">
-            <button id="showNotes">Notes</button>
-            <button id="showLife">Vie courante</button>
+            <button id="notesButton">Notes</button>
+            <button id="lifeButton">Vie courante</button>
         </div>
 
-        <!-- Sous-menus (initialement masqués) -->
+        <!-- Sous-menus -->
         <div id="notesMenu" class="category hidden">
             <h2>Notes</h2>
             <button class="noteButton" data-points="4">Entre 18 et 20</button>
@@ -48,19 +51,9 @@
             <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
         </div>
 
-        <!-- Réinitialiser le score -->
-        <div class="buttons">
-            <button id="resetScore">Réinitialiser le score</button>
-        </div>
-
-        <!-- Champ pour initialiser le score (initialement masqué) -->
-        <div id="scoreInitContainer" class="hidden">
-            <label for="initialScore">Score initial :</label>
-            <input type="number" id="initialScore" placeholder="Entrez un score">
-            <button id="setInitialScore">Confirmer</button>
-        </div>
+        <!-- Bouton Réinitialiser le score -->
+        <button id="resetScore">Réinitialiser le score</button>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

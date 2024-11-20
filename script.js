@@ -101,10 +101,10 @@ lifeButtons.forEach(button => {
 
 // Réinitialisation avec saisie du score initial
 initScoreButton.addEventListener('click', () => {
-    const initialScore = parseInt(scoreInitInput.value);
+    const initialScore = parseInt(scoreInitInput.value); // Lire la valeur saisie
     if (!isNaN(initialScore)) {
-        score = initialScore;
-        scoreInitialized = true;
+        score = initialScore; // Appliquer le score initial
+        // scoreInitialized = true;
         updateScore();
         scoreInitContainer.classList.add('hidden'); // Masquer la zone d'initialisation
     } else {
@@ -114,7 +114,7 @@ initScoreButton.addEventListener('click', () => {
 
 // Réinitialiser le score avec affichage du champ d'initialisation
 resetScoreButton.addEventListener('click', () => {
-    scoreInitialized = false;
+    // scoreInitialized = false;
     scoreInitContainer.classList.remove('hidden'); // Afficher la zone d'initialisation
     scoreInitInput.value = ''; // Réinitialiser l'input pour éviter les valeurs résiduelles
 });
