@@ -121,3 +121,38 @@ body {
     background-color: #3e8e41; /* Un peu plus foncé */
     transform: scale(0.95); /* Effet de réduction pour l'interaction tactile */
 }
+/*style du champ d'initialisation du score */
+.score-init {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.score-init label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.score-init input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80px;
+    text-align: center;
+}
+
+.score-init button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+.score-init button:hover {
+    background-color: #45a049;
+}

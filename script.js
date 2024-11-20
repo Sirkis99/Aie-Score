@@ -9,6 +9,8 @@ const lifeButtons = document.querySelectorAll('.lifeButton'); // Sélectionner t
 const scoreSlider = document.getElementById('scoreSlider'); // Récupérer le curseur
 const sliderValue = document.getElementById('sliderValue'); // Récupérer la valeur du curseur
 const sliderMessage = document.getElementById('sliderMessage'); // Récupérer l'élément pour afficher le message
+const initialScoreInput = document.getElementById('initialScore'); // Champ pour initialiser le score
+const setInitialScoreButton = document.getElementById('setInitialScore'); // Bouton pour initialiser le score
 
 // Fonction pour mettre à jour l'affichage du score et le sauvegarder dans localStorage
 function updateScore() {
@@ -76,8 +78,20 @@ scoreSlider.addEventListener('input', () => {
     updateScore(); // Mettre à jour l'affichage
 });
 
+// Fonction pour initialiser le score au début de la partie
+function setInitialScore() {
+    const initialScore = parseInt(initialScoreInput.value, 10); // Récupérer la valeur saisie
+    if (!isNaN(initialScore)) {
+        score = initialScore; // Mettre à jour le score
+        updateScore(); // Mettre à jour l'affichage
+        alert(`Le score a été initialisé à ${score}.`);
+    } else {
+        alert("Veuillez entrer une valeur numérique valide.");
+    }
+}
+
+// Ajouter un événement au bouton pour initialiser le score
+setInitialScoreButton.addEventListener('click', setInitialScore);
+
 // Initialisation du score sur la page
 updateScore();
-
-
-

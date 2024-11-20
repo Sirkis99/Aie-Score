@@ -7,20 +7,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Barre fixe pour afficher le score -->
-    <div class="score-bar">
+    <div class="container">
+        <h1>Jeu de Score</h1>
+        
+        <!-- Champ pour initialiser le score -->
+        <div class="score-init">
+            <label for="initialScore">Score initial :</label>
+            <input type="number" id="initialScore" placeholder="Entrez un score" value="10">
+            <button id="setInitialScore">Initialiser</button>
+        </div>
+
+        <!-- Affichage du score -->
         <p>Score actuel : <span id="score">10</span> points</p>
+
+        <!-- Curseur pour afficher le score -->
         <div class="slider-container">
             <input type="range" id="scoreSlider" min="-10" max="25" value="10" step="1">
             <span id="sliderValue">10</span> points
         </div>
-    </div>
 
-    <div class="container">
-        <h1>Aie-Score</h1>
+        <!-- Zone pour afficher le message dynamique -->
+        <div id="sliderMessage" class="slider-message">Normal</div>
 
-        <!-- Reste du contenu -->
-        <!-- Notes -->
+        <!-- Catégorie Notes -->
         <div class="category">
             <h2>Notes</h2>
             <button class="noteButton" data-points="4">Entre 18 et 20</button>
@@ -32,7 +41,7 @@
             <button class="noteButton" data-points="-4">Entre 0 et 5</button>
         </div>
 
-        <!-- Vie courante -->
+        <!-- Catégorie Vie courante -->
         <div class="category">
             <h2>Vie courante</h2>
             <button class="lifeButton" data-points="-1">Oubli d'affaires</button>
@@ -41,7 +50,7 @@
             <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
         </div>
 
-        <!-- Réinitialisation -->
+        <!-- Bouton pour réinitialiser le score -->
         <div class="buttons">
             <button id="resetScore">Réinitialiser le score</button>
         </div>
