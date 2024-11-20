@@ -1,158 +1,38 @@
-/* Assurer que le site utilise toute la largeur de l'écran */
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Utilise toute la hauteur de l'écran */
-    background-color: #f0f0f0;
-    margin: 0; /* Enlever les marges par défaut */
-    padding: 0;
+.hidden {
+    display: none;
 }
 
-/* Barre fixe pour le score */
-.score-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.score-bar .slider-container {
-    flex-grow: 1;
-    margin-left: 20px;
-}
-
-.score-bar input[type="range"] {
-    width: 100%;
-}
-
-/* Ajouter un espace en haut pour éviter que le contenu soit caché */
-.container {
-    text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px; /* Limiter la largeur du conteneur */
-    padding-top: 80px; /* Espacement pour la barre fixe */
-}
-
-/* Boutons organisés en grille */
-.category {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Deux colonnes de largeur égale */
-    gap: 10px; /* Espacement entre les boutons */
-    margin-bottom: 20px; /* Espacement entre chaque catégorie */
-}
-
-.noteButton, .lifeButton, .buttons button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+/* Ajustements pour les boutons principaux */
+.main-buttons button {
+    width: 100%; /* Occuper toute la largeur */
+    margin-bottom: 10px;
     padding: 15px;
-    font-size: 16px;
-    text-align: center;
-    border-radius: 10px;
+    font-size: 18px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    width: 100%; /* Boutons s'adaptent à leur colonne */
-    box-sizing: border-box; /* Prend en compte padding et bordures */
 }
 
-/* Ajouter des ombres au survol */
-.noteButton:hover, .lifeButton:hover, .buttons button:hover {
-    background-color: #45a049;
+.main-buttons button:hover {
+    background-color: #0056b3;
 }
 
-/* Curseur pour afficher le score */
-#scoreSlider {
-    width: 90%;
-    margin: 10px 0;
-}
-
-/* Message dynamique */
-.slider-message {
-    margin-top: 20px;
-    font-size: 18px;
-    color: green;
-}
-
-/* Pour les petits écrans (mobiles ou tablettes) */
-@media (max-width: 768px) {
-    .category h2 {
-        font-size: 1.4em; /* Ajuster la taille du titre pour les petits écrans */
-    }
-
-    .slider-message {
-        font-size: 16px; /* Adapter la taille du texte du message */
-    }
-
-    /* Barre fixe pour les petits écrans */
-    .score-bar {
-        padding: 8px 15px; /* Réduire légèrement le padding */
-    }
-
-    .score-bar .slider-container {
-        margin-left: 10px; /* Réduire l'espace entre texte et curseur */
-    }
-
-    .container {
-        padding-top: 90px; /* Ajuste l'espacement en haut */
-    }
-}
-/*lisibilité du contenu */
-.noteButton {
-    background-color: #2196F3; /* Bleu */
-}
-.lifeButton {
-    background-color: #FF5722; /* Orange */
-}
-/* montrer quand un bouton est pressé */
-.noteButton:active, .lifeButton:active, .buttons button:active {
-    background-color: #3e8e41; /* Un peu plus foncé */
-    transform: scale(0.95); /* Effet de réduction pour l'interaction tactile */
-}
-/*style du champ d'initialisation du score */
-.score-init {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.score-init label {
+/* Sous-menus (boutons des catégories) */
+.category button {
+    margin: 5px;
+    padding: 10px 20px;
     font-size: 16px;
-    margin-right: 10px;
-}
-
-.score-init input {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 80px;
-    text-align: center;
-}
-
-.score-init button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
     border-radius: 5px;
-    margin-left: 10px;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.score-init button:hover {
+.category button:hover {
     background-color: #45a049;
 }

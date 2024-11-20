@@ -1,97 +1,92 @@
-// Charger le score depuis le localStorage, sinon utiliser la valeur par défaut de 10
+// Charger le score depuis le localStorage ou utiliser la valeur par défaut
 let score = localStorage.getItem('score') ? parseInt(localStorage.getItem('score')) : 10;
 
 // Récupérer les éléments du DOM
 const scoreElement = document.getElementById('score');
 const resetScoreButton = document.getElementById('resetScore');
-const noteButtons = document.querySelectorAll('.noteButton'); // Sélectionner tous les boutons de la catégorie "Notes"
-const lifeButtons = document.querySelectorAll('.lifeButton'); // Sélectionner tous les boutons de la catégorie "Vie courante"
-const scoreSlider = document.getElementById('scoreSlider'); // Récupérer le curseur
-const sliderValue = document.getElementById('sliderValue'); // Récupérer la valeur du curseur
-const sliderMessage = document.getElementById('sliderMessage'); // Récupérer l'élément pour afficher le message
-const initialScoreInput = document.getElementById('initialScore'); // Champ pour initialiser le score
-const setInitialScoreButton = document.getElementById('setInitialScore'); // Bouton pour initialiser le score
+const scoreSlider = document.getElementById('scoreSlider');
+const sliderValue = document.getElementById('sliderValue');
+const sliderMessage = document.getElementById('sliderMessage');
+const initialScoreInput = document.getElementById('initialScore');
+const setInitialScoreButton = document.getElementById('setInitialScore');
 
-// Fonction pour mettre à jour l'affichage du score et le sauvegarder dans localStorage
+// Boutons pour afficher les sous-menus
+const showNotesButton = document.getElementById('showNotes');
+const showLifeButton = document.getElementById('showLife');
+
+// Sous-menus
+const notesMenu = document.getElementById('notesMenu');
+const lifeMenu = document.getElementById('lifeMenu');
+
+// Fonction pour mettre à jour l'affichage du score
 function updateScore() {
     scoreElement.textContent = score;
-    scoreSlider.value = score; // Mettre à jour la position du curseur
-    sliderValue.textContent = score; // Afficher la valeur actuelle du score à côté du curseur
-    updateSliderMessage(score); // Mettre à jour le message en fonction du score
-    // Sauvegarder le score dans le localStorage
+    scoreSlider.value = score;
+    sliderValue.textContent = score;
+    updateSliderMessage(score);
     localStorage.setItem('score', score);
 }
 
-// Fonction pour afficher le message dynamique en fonction du score
+// Fonction pour mettre à jour le message dynamique
 function updateSliderMessage(score) {
     if (score < 0) {
         sliderMessage.textContent = "Plus rien";
         sliderMessage.style.color = "red";
-    } else if (score >= 0 && score < 4) {
+    } else if (score < 4) {
         sliderMessage.textContent = "Plus de console ni de TV";
         sliderMessage.style.color = "orange";
-    } else if (score >= 4 && score < 8) {
+    } else if (score < 8) {
         sliderMessage.textContent = "Plus de console";
         sliderMessage.style.color = "orange";
-    } else if (score >= 8 && score < 14) {
+    } else if (score < 14) {
         sliderMessage.textContent = "Normal";
         sliderMessage.style.color = "green";
-    } else if (score >= 14 && score < 18) {
+    } else if (score < 18) {
         sliderMessage.textContent = "15 mn de jeu en plus pour 4 jours";
         sliderMessage.style.color = "green";
-    } else if (score >= 18 && score < 20) {
+    } else if (score < 20) {
         sliderMessage.textContent = "30 mn de jeu en plus pour 4 jours";
         sliderMessage.style.color = "green";
-    } else if (score >= 20) {
+    } else {
         sliderMessage.textContent = "VBUCKS";
         sliderMessage.style.color = "blue";
     }
 }
 
-// Ajouter un événement à chaque bouton de la catégorie "Notes"
-noteButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const points = parseInt(button.getAttribute('data-points')); // Récupérer la valeur des points du bouton
-        score += points; // Modifier le score en fonction de la valeur du bouton
-        updateScore(); // Mettre à jour l'affichage
-    });
+// Afficher le menu Notes
+showNotesButton.addEventListener('click', () => {
+    notesMenu.classList.toggle('hidden');
+    lifeMenu.classList.add('hidden');
 });
 
-// Ajouter un événement à chaque bouton de la catégorie "Vie courante"
-lifeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const points = parseInt(button.getAttribute('data-points')); // Récupérer la valeur des points du bouton
-        score += points; // Modifier le score en fonction de la valeur du bouton
-        updateScore(); // Mettre à jour l'affichage
-    });
+// Afficher le menu Vie courante
+showLifeButton.addEventListener('click', () => {
+    lifeMenu.classList.toggle('hidden');
+    notesMenu.classList.add('hidden');
+});
+
+// Initialiser le score
+setInitialScoreButton.addEventListener('click', () => {
+    const initialScore = parseInt(initialScoreInput.value, 10);
+    if (!isNaN(initialScore)) {
+        score = initialScore;
+        updateScore();
+    } else {
+        alert("Veuillez entrer un score valide.");
+    }
 });
 
 // Réinitialiser le score
 resetScoreButton.addEventListener('click', () => {
-    score = 10; // Réinitialiser à 10 points
+    score = 10;
     updateScore();
 });
 
-// Synchroniser le curseur avec le score
+// Synchroniser le curseur
 scoreSlider.addEventListener('input', () => {
-    score = parseInt(scoreSlider.value); // Récupérer la valeur du curseur
-    updateScore(); // Mettre à jour l'affichage
+    score = parseInt(scoreSlider.value);
+    updateScore();
 });
 
-// Fonction pour initialiser le score au début de la partie
-function setInitialScore() {
-    const initialScore = parseInt(initialScoreInput.value, 10); // Récupérer la valeur saisie
-    if (!isNaN(initialScore)) {
-        score = initialScore; // Mettre à jour le score
-        updateScore(); // Mettre à jour l'affichage
-        alert(`Le score a été initialisé à ${score}.`);
-    } else {
-        alert("Veuillez entrer une valeur numérique valide.");
-    }
-}
-
-// Ajouter un événement au bouton pour initialiser le score
-setInitialScoreButton.addEventListener('click', setInitialScore);
-
-// Initialisation du score sur la page
+// Initialisation
 updateScore();
