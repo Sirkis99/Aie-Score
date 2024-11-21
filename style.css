@@ -68,10 +68,10 @@ body {
     background-color: #45a049;
 }
 
-/* Sous-menu - affichage en deux colonnes pour les notes */
+/* Sous-menu - affichage en deux colonnes pour les notes et la vie courante */
 .submenu {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
     gap: 10px;
     margin-top: 20px;
 }
