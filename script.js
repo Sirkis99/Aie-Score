@@ -13,9 +13,20 @@ const showGraphButton = document.getElementById("showGraphButton");
 
 const notesMenu = document.getElementById("notesMenu");
 const lifeMenu = document.getElementById("lifeMenu");
+const mainMenu = document.getElementById("mainMenu");
+
 const scoreGraphContainer = document.getElementById("scoreGraphContainer");
 const scoreChartCanvas = document.getElementById("scoreChart");
 const closeGraph = document.getElementById("closeGraph");
+
+document.querySelectorAll(".backToMenu").forEach(button => {
+    button.addEventListener("click", () => {
+        notesMenu.classList.add("hidden");
+        lifeMenu.classList.add("hidden");
+        scoreGraphContainer.classList.add("hidden");
+        mainMenu.classList.remove("hidden");
+    });
+});
 
 function updateScore() {
     scoreElement.textContent = score;
@@ -24,15 +35,37 @@ function updateScore() {
     scoreHistory.push(score);
 }
 
-function updateSliderMessage() {
-    sliderMessage.textContent = score >= 0 ? `Score : ${score}` : "Score négatif";
-}
+resetScoreButton.addEventListener("click", () => {
+    const initialScore = prompt("Entrez le score initial :");
+    if (!isNaN(initialScore)) {
+        score = parseInt(initialScore);
+        scoreHistory = [score];
+        updateScore();
+    }
+});
 
-function showSubMenu(menu) {
+showNotesMenu.addEventListener("click", () => {
+    mainMenu.classList.add("hidden");
+    notesMenu.classList.remove("hidden");
+});
+
+showLifeMenu.addEventListener("click", () => {
+    mainMenu.classList.add("hidden");
+    lifeMenu.classList.remove("hidden");
+});
+
+showGraphButton.addEventListener("click", () => {
+    mainMenu.classList.add("hidden");
     notesMenu.classList.add("hidden");
     lifeMenu.classList.add("hidden");
-    menu.classList.remove("hidden");
-}
+    scoreGraphContainer.classList.remove("hidden");
+    renderGraph();
+});
+
+closeGraph.addEventListener("click", () => {
+    scoreGraphContainer.classList.add("hidden");
+    mainMenu.classList.remove("hidden");
+});
 
 function renderGraph() {
     const ctx = scoreChartCanvas.getContext("2d");
@@ -51,34 +84,11 @@ function renderGraph() {
     });
 }
 
-resetScoreButton.addEventListener("click", () => {
-    const initialScore = prompt("Entrez le score initial :");
-    if (!isNaN(initialScore)) {
-        score = parseInt(initialScore);
-        scoreHistory = [score];
-        updateScore();
-        updateSliderMessage();
-    }
-});
-
-showNotesMenu.addEventListener("click", () => showSubMenu(notesMenu));
-showLifeMenu.addEventListener("click", () => showSubMenu(lifeMenu));
-
-showGraphButton.addEventListener("click", () => {
-    scoreGraphContainer.classList.remove("hidden");
-    renderGraph();
-});
-
-closeGraph.addEventListener("click", () => {
-    scoreGraphContainer.classList.add("hidden");
-});
-
 document.querySelectorAll(".noteButton, .lifeButton").forEach(button => {
     button.addEventListener("click", () => {
         const points = parseInt(button.getAttribute("data-points"));
         score += points;
         updateScore();
-        updateSliderMessage();
     });
 });
 

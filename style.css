@@ -1,3 +1,4 @@
+/* Style global */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -9,6 +10,7 @@ body {
     padding: 0;
 }
 
+/* Conteneur principal */
 .container {
     text-align: center;
     background-color: white;
@@ -19,11 +21,19 @@ body {
     max-width: 500px;
 }
 
+/* Curseur du score */
 #scoreSlider {
     width: 90%;
     margin: 10px 0;
 }
 
+.slider-message {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Boutons principaux */
 #mainMenu button {
     background-color: #4CAF50;
     color: white;
@@ -41,10 +51,11 @@ body {
     background-color: #45a049;
 }
 
+/* Sous-menus */
 .submenu {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
+    gap: 10px; /* Espacement entre les boutons */
     margin-top: 10px;
 }
 
@@ -63,20 +74,24 @@ body {
     background-color: #1976D2;
 }
 
-.hidden {
-    display: none;
+/* Boutons "Retour" */
+.backToMenu {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    padding: 15px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100%;
 }
 
-.slider-message {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.buttons button:hover {
+.backToMenu:hover {
     background-color: #E64A19;
 }
 
+/* Conteneur du graphique */
 #scoreGraphContainer {
     text-align: center;
     margin: 20px auto;
@@ -106,4 +121,35 @@ body {
 
 #closeGraph:hover {
     background-color: #E64A19;
+}
+
+/* Classes utilitaires */
+.hidden {
+    display: none;
+}
+
+/* Adaptation pour les petits écrans */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .slider-message {
+        font-size: 16px;
+    }
+
+    .submenu button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    #mainMenu button, .backToMenu {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    #closeGraph {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
