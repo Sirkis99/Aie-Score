@@ -88,11 +88,20 @@ function toggleMenu(hideElement, showElement) {
 
 // Afficher le graphique
 function showGraph() {
-    toggleMenu(mainMenu, scoreGraphContainer);
+    console.log("Affichage du graphique...");
+    console.log("Historique des scores : ", scoreHistory);   
+	toggleMenu(mainMenu, scoreGraphContainer);
 
     // Détruire l'ancien graphique s'il existe
     if (window.scoreChart) {
         window.scoreChart.destroy();
+    }
+
+    // Vérifier si l'historique contient des données
+    if (scoreHistory.length === 0) {
+        alert("Pas de données à afficher dans le graphique !");
+        toggleMenu(scoreGraphContainer, mainMenu);
+        return;
     }
 
     // Créer le graphique
@@ -124,6 +133,7 @@ function showGraph() {
         }
     });
 }
+
 
 // Initialiser
 updateScore();
