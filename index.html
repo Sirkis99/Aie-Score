@@ -3,40 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu de Score</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Suivi du Score</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Jeu de Score</h1>
+        <h1>Suivi du Score</h1>
         
-        <!-- Affichage du score actuel -->
-        <p id="currentScore">Score actuel : <span id="score">0</span> points</p>
-
-        <!-- Curseur pour ajuster le score -->
-        <div id="sliderContainer">
-            <input type="range" id="scoreSlider" min="-10" max="50" step="1" value="0">
-            <span id="sliderValue">0</span>
+        <!-- Affichage du score -->
+        <div id="scoreContainer">
+            <h2 id="score">0</h2>
+            <input type="range" id="scoreSlider" value="0" min="0" max="100">
+            <div id="sliderValue">0</div>
+            <div id="sliderMessage">Moyen</div>
         </div>
-        <div id="sliderMessage" class="slider-message">Normal</div>
 
-        <!-- Menu principal -->
+        <!-- Menu Principal -->
         <div id="mainMenu">
             <button id="showNotes">Notes</button>
             <button id="showLife">Vie courante</button>
+            <button id="showGraph">Evolution du score</button>
             <button id="resetScore">Réinitialiser le score</button>
-            <button id="showGraph">Évolution du score</button>
         </div>
 
         <!-- Sous-menus -->
-        <div id="subMenu" class="submenu hidden"></div>
+        <div id="subMenu" class="hidden"></div>
 
         <!-- Conteneur du graphique -->
         <div id="scoreGraphContainer" class="hidden">
             <canvas id="scoreChart"></canvas>
             <button id="closeGraph">Fermer</button>
         </div>
+
+        <!-- Conteneur pour les messages temporaires -->
+        <div id="tempMessageContainer"></div>
     </div>
 
     <script src="script.js"></script>
