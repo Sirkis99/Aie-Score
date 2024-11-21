@@ -88,8 +88,6 @@ function toggleMenu(hideElement, showElement) {
 
 // Afficher le graphique
 function showGraph() {
-    console.log("Affichage du graphique...");
-    console.log("Historique des scores : ", scoreHistory);   
 	toggleMenu(mainMenu, scoreGraphContainer);
 
     // Détruire l'ancien graphique s'il existe
