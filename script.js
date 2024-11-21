@@ -1,85 +1,100 @@
-document.addEventListener("DOMContentLoaded", () => {
-    let score = 0;
-    const history = [];
-    const scoreElement = document.getElementById("score");
-    const sliderValue = document.getElementById("sliderValue");
-    const sliderMessage = document.getElementById("sliderMessage");
-    const subMenu = document.getElementById("subMenu");
-    const scoreGraphContainer = document.getElementById("scoreGraphContainer");
-    const scoreSlider = document.getElementById("scoreSlider");
+// Variables globales
+let score = 0;
+let scoreHistory = [];
+let buttonHistory = [];
 
-    const notesButtons = [
-        { text: "Entre 18 et 20 (+4)", points: 4 },
-        { text: "Entre 16 et 18 (+2)", points: 2 },
-        { text: "Entre 15 et 16 (+1)", points: 1 },
-        { text: "Entre 12 et 14 (-1)", points: -1 },
-        { text: "Entre 10 et 12 (-2)", points: -2 },
-    ];
+// Éléments du DOM
+const scoreElement = document.getElementById('score');
+const scoreSlider = document.getElementById('scoreSlider');
+const sliderValue = document.getElementById('sliderValue');
+const sliderMessage = document.getElementById('sliderMessage');
+const mainMenu = document.getElementById('mainMenu');
+const subMenu = document.getElementById('subMenu');
+const scoreGraphContainer = document.getElementById('scoreGraphContainer');
+const scoreChartElement = document.getElementById('scoreChart');
 
-    const lifeButtons = [
-        { text: "Oubli d'affaires (-1)", points: -1 },
-        { text: "Retrouvé le lendemain (+1)", points: 1 },
-        { text: "Non retrouvé (-3)", points: -3 },
-    ];
+// Mise à jour du score
+function updateScore(change = 0, buttonLabel = "") {
+    score += change;
+    scoreElement.textContent = score;
+    sliderValue.textContent = score;
+    scoreSlider.value = score;
 
-    // Update score display
-    const updateScore = () => {
-        scoreElement.textContent = score;
-        sliderValue.textContent = score;
-        scoreSlider.value = score;
-        sliderMessage.textContent = score >= 0 ? "Normal" : "Attention";
-        history.push(score);
-    };
+    // Sauvegarder l'historique
+    if (change !== 0) {
+        scoreHistory.push(score);
+        buttonHistory.push(buttonLabel);
+    }
 
-    // Populate submenu with buttons
-    const populateSubMenu = (buttons) => {
-        subMenu.innerHTML = "";
-        buttons.forEach((btn) => {
-            const button = document.createElement("button");
-            button.textContent = btn.text;
-            button.addEventListener("click", () => {
-                score += btn.points;
-                updateScore();
-            });
-            subMenu.appendChild(button);
+    // Mettre à jour le message du curseur
+    if (score < 0) {
+        sliderMessage.textContent = "Plus rien";
+    } else if (score < 10) {
+        sliderMessage.textContent = "Normal";
+    } else {
+        sliderMessage.textContent = "VBUCKS !";
+    }
+}
+
+// Gestion des sous-menus
+function showSubMenu(buttons) {
+    subMenu.innerHTML = "";
+    buttons.forEach(({ label, points }) => {
+        const button = document.createElement('button');
+        button.textContent = label;
+        button.addEventListener('click', () => {
+            updateScore(points, label);
         });
-        subMenu.classList.remove("hidden");
-    };
-
-    // Show graph
-    const showGraph = () => {
-        scoreGraphContainer.classList.remove("hidden");
-        const ctx = document.getElementById("scoreChart").getContext("2d");
-        new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: Array.from({ length: history.length }, (_, i) => i + 1),
-                datasets: [{
-                    label: "Score",
-                    data: history,
-                    borderColor: "blue",
-                    borderWidth: 2,
-                }],
-            },
-            options: {
-                responsive: true,
-            },
-        });
-    };
-
-    // Event listeners
-    document.getElementById("showNotes").addEventListener("click", () => populateSubMenu(notesButtons));
-    document.getElementById("showLife").addEventListener("click", () => populateSubMenu(lifeButtons));
-    document.getElementById("resetScore").addEventListener("click", () => {
-        const initial = prompt("Entrez le score initial :", "0");
-        if (!isNaN(initial)) {
-            score = parseInt(initial, 10);
-            updateScore();
-        }
+        subMenu.appendChild(button);
     });
-    document.getElementById("showGraph").addEventListener("click", showGraph);
-    document.getElementById("closeGraph").addEventListener("click", () => scoreGraphContainer.classList.add("hidden"));
+    subMenu.classList.remove('hidden');
+}
 
-    // Initialize
-    updateScore();
+// Affichage du graphique
+function displayGraph() {
+    const ctx = scoreChartElement.getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array.from({ length: scoreHistory.length }, (_, i) => i + 1),
+            datasets: [{
+                label: 'Évolution du score',
+                data: scoreHistory,
+                borderColor: 'blue',
+                backgroundColor: 'rgba(0, 0, 255, 0.2)',
+            }],
+        },
+    });
+    scoreGraphContainer.classList.remove('hidden');
+}
+
+// Boutons principaux
+document.getElementById('showNotes').addEventListener('click', () => {
+    showSubMenu([
+        { label: "Entre 18 et 20", points: 4 },
+        { label: "Entre 16 et 18", points: 2 },
+        { label: "Entre 0 et 5", points: -4 },
+    ]);
 });
+
+document.getElementById('showLife').addEventListener('click', () => {
+    showSubMenu([
+        { label: "Oubli d'affaires", points: -1 },
+        { label: "Retrouvé le lendemain", points: 1 },
+    ]);
+});
+
+document.getElementById('resetScore').addEventListener('click', () => {
+    score = parseInt(prompt("Score initial : ", "0")) || 0;
+    scoreHistory = [];
+    buttonHistory = [];
+    updateScore(0);
+});
+
+document.getElementById('showGraph').addEventListener('click', displayGraph);
+document.getElementById('closeGraph').addEventListener('click', () => {
+    scoreGraphContainer.classList.add('hidden');
+});
+
+// Initialisation
+updateScore(0);

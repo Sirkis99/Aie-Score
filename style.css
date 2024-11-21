@@ -1,4 +1,4 @@
-/* Global styles */
+/* Assurer que le site utilise toute la largeur de l'écran */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -10,139 +10,126 @@ body {
     padding: 0;
 }
 
-/* Container */
+/* Conteneur principal */
 .container {
     text-align: center;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 100%;
     max-width: 500px;
 }
 
-/* Hidden elements */
-.hidden {
-    display: none;
-}
-
-/* Slider styles */
+/* Curseur du score */
 #scoreSlider {
     width: 90%;
     margin: 10px 0;
 }
 
-/* Button styles */
-button {
+/* Boutons principaux */
+#mainMenu button {
     background-color: #4CAF50;
     color: white;
     border: none;
     padding: 15px 25px;
     margin: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+#mainMenu button:hover {
+    background-color: #45a049;
+}
+
+/* Sous-menus */
+.submenu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.submenu button {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 15px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 8px;
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #45a049;
+.submenu button:hover {
+    background-color: #1976D2;
 }
 
-/* Submenu grid layout */
-.submenu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Graph container */
-#scoreGraphContainer {
-    text-align: center;
-    padding: 10px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: auto;
-}
-
-#scoreChart {
-    width: 100%;
-    height: 300px;
-}
-/* Global styles */
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-}
-
-/* Container */
-.container {
-    text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 500px;
-}
-
-/* Hidden elements */
+/* Caché par défaut */
 .hidden {
     display: none;
 }
 
-/* Slider styles */
-#scoreSlider {
-    width: 90%;
+/* Curseur message */
+.slider-message {
+    font-size: 18px;
+    font-weight: bold;
     margin: 10px 0;
 }
 
-/* Button styles */
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    margin: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* Submenu grid layout */
-.submenu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Graph container */
+/* Boutons d'actions */
 #scoreGraphContainer {
     text-align: center;
+    margin: 20px auto;
     padding: 10px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
     max-width: 500px;
-    margin: auto;
 }
 
 #scoreChart {
     width: 100%;
     height: 300px;
+}
+
+#closeGraph {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+#closeGraph:hover {
+    background-color: #E64A19;
+}
+
+/* Pour les petits écrans */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .submenu button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    #mainMenu button {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    #closeGraph {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }

@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Score</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Ajout de Chart.js -->
+    <!-- Inclusion de Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Jeu de Score</h1>
-        <p id="currentScore" class="hidden">Score actuel : <span id="score">0</span> points</p>
+        <p id="currentScore">Score actuel : <span id="score">0</span> points</p>
 
         <!-- Curseur pour ajuster le score -->
-        <div id="sliderContainer" class="hidden">
+        <div id="sliderContainer">
             <input type="range" id="scoreSlider" min="-10" max="50" step="1" value="0">
             <span id="sliderValue">0</span>
         </div>
-        <div id="sliderMessage" class="slider-message hidden">Normal</div>
+        <div id="sliderMessage" class="slider-message">Normal</div>
 
         <!-- Menu principal -->
         <div id="mainMenu">
