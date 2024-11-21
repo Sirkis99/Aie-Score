@@ -18,12 +18,24 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px; /* Augmenté pour accommoder deux colonnes */
+    max-width: 500px; /* Pour accommoder deux colonnes */
+}
+
+/* Titre principal */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 /* Curseur du score */
 #scoreSlider {
     width: 90%;
+    margin: 10px 0;
+}
+
+.slider-message {
+    font-size: 18px;
+    font-weight: bold;
     margin: 10px 0;
 }
 
@@ -68,19 +80,7 @@ body {
     background-color: #1976D2;
 }
 
-/* Caché par défaut */
-.hidden {
-    display: none;
-}
-
-/* Curseur message */
-.slider-message {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-/* Boutons d'actions */
+/* Boutons pour fermer ou annuler */
 .buttons button {
     background-color: #FF5722;
     color: white;
@@ -130,10 +130,40 @@ body {
     background-color: #E64A19;
 }
 
+/* Caché par défaut */
+.hidden {
+    display: none;
+}
+
+/* Animation pour les scores gagnés/perdus */
+.score-popup {
+    position: fixed;
+    font-size: 3rem;
+    font-weight: bold;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1000;
+    animation: fadeOut 1.5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+    }
+}
+
 /* Pour les petits écrans */
 @media (max-width: 768px) {
     .container {
         padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
     }
 
     .slider-message {
