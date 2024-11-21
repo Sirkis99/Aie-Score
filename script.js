@@ -12,6 +12,7 @@ const subMenu = document.getElementById('subMenu');
 const scoreGraphContainer = document.getElementById('scoreGraphContainer');
 const scoreChartElement = document.getElementById('scoreChart');
 const mainMenu = document.getElementById('mainMenu');
+const tempMessageContainer = document.getElementById('tempMessageContainer');
 
 // Mise à jour du score
 function updateScore(change = 0, buttonLabel = "") {
@@ -63,12 +64,19 @@ function showTemporaryMessage(points) {
 function showSubMenu(buttons) {
     mainMenu.classList.add('hidden');  // Masquer le menu principal
     subMenu.innerHTML = "";  // Réinitialiser le sous-menu
+
+    // Ajouter les boutons avec une disposition en deux colonnes
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('button-container');
+    
     buttons.forEach(({ label, points }) => {
         const button = document.createElement('button');
         button.textContent = label;
         button.addEventListener('click', () => updateScore(points, label));
-        subMenu.appendChild(button);
+        buttonContainer.appendChild(button);
     });
+
+    // Ajouter un bouton de retour
     const backButton = document.createElement('button');
     backButton.textContent = 'Retour';
     backButton.classList.add('backToMenu');
@@ -76,7 +84,9 @@ function showSubMenu(buttons) {
         mainMenu.classList.remove('hidden');
         subMenu.classList.add('hidden');
     });
-    subMenu.appendChild(backButton);
+
+    buttonContainer.appendChild(backButton);
+    subMenu.appendChild(buttonContainer);
     subMenu.classList.remove('hidden');
 }
 
