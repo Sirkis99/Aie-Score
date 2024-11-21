@@ -1,163 +1,85 @@
-let score = 0; // Score initial
-let scoreHistory = []; // Historique des scores
+document.addEventListener("DOMContentLoaded", () => {
+    let score = 0;
+    const history = [];
+    const scoreElement = document.getElementById("score");
+    const sliderValue = document.getElementById("sliderValue");
+    const sliderMessage = document.getElementById("sliderMessage");
+    const subMenu = document.getElementById("subMenu");
+    const scoreGraphContainer = document.getElementById("scoreGraphContainer");
+    const scoreSlider = document.getElementById("scoreSlider");
 
-// Sélection des éléments principaux
-const scoreElement = document.getElementById('score');
-const scoreSlider = document.getElementById('scoreSlider');
-const sliderValue = document.getElementById('sliderValue');
-const sliderMessage = document.getElementById('sliderMessage');
-const mainMenu = document.getElementById('mainMenu');
-const notesSubmenu = document.getElementById('notesSubmenu');
-const lifeSubmenu = document.getElementById('lifeSubmenu');
-const scoreGraphContainer = document.getElementById('scoreGraphContainer');
-const scoreChartCanvas = document.getElementById('scoreChart');
-const resetScoreButton = document.getElementById('resetScore');
-const closeGraphButton = document.getElementById('closeGraph');
+    const notesButtons = [
+        { text: "Entre 18 et 20 (+4)", points: 4 },
+        { text: "Entre 16 et 18 (+2)", points: 2 },
+        { text: "Entre 15 et 16 (+1)", points: 1 },
+        { text: "Entre 12 et 14 (-1)", points: -1 },
+        { text: "Entre 10 et 12 (-2)", points: -2 },
+    ];
 
-// Met à jour l'affichage du score et sauvegarde dans l'historique
-function updateScore(points = 0) {
-    score += points;
-    scoreElement.textContent = score;
-    sliderValue.textContent = score;
-    scoreSlider.value = score;
-    updateSliderMessage(score);
+    const lifeButtons = [
+        { text: "Oubli d'affaires (-1)", points: -1 },
+        { text: "Retrouvé le lendemain (+1)", points: 1 },
+        { text: "Non retrouvé (-3)", points: -3 },
+    ];
 
-    // Enregistre l'évolution du score
-    const timestamp = new Date().toLocaleTimeString();
-    scoreHistory.push({ timestamp, score });
-}
+    // Update score display
+    const updateScore = () => {
+        scoreElement.textContent = score;
+        sliderValue.textContent = score;
+        scoreSlider.value = score;
+        sliderMessage.textContent = score >= 0 ? "Normal" : "Attention";
+        history.push(score);
+    };
 
-// Met à jour le message affiché en fonction du score
-function updateSliderMessage(score) {
-    if (score < 0) {
-        sliderMessage.textContent = "Plus rien";
-        sliderMessage.style.color = "red";
-    } else if (score >= 0 && score < 4) {
-        sliderMessage.textContent = "Plus de console ni de TV";
-        sliderMessage.style.color = "orange";
-    } else if (score >= 4 && score < 8) {
-        sliderMessage.textContent = "Plus de console";
-        sliderMessage.style.color = "orange";
-    } else if (score >= 8 && score < 14) {
-        sliderMessage.textContent = "Normal";
-        sliderMessage.style.color = "green";
-    } else if (score >= 14 && score < 18) {
-        sliderMessage.textContent = "15 min de jeu en plus pour 4 jours";
-        sliderMessage.style.color = "green";
-    } else if (score >= 18 && score < 20) {
-        sliderMessage.textContent = "30 min de jeu en plus pour 4 jours";
-        sliderMessage.style.color = "green";
-    } else if (score >= 20) {
-        sliderMessage.textContent = "V-BUCKS";
-        sliderMessage.style.color = "blue";
-    }
-}
+    // Populate submenu with buttons
+    const populateSubMenu = (buttons) => {
+        subMenu.innerHTML = "";
+        buttons.forEach((btn) => {
+            const button = document.createElement("button");
+            button.textContent = btn.text;
+            button.addEventListener("click", () => {
+                score += btn.points;
+                updateScore();
+            });
+            subMenu.appendChild(button);
+        });
+        subMenu.classList.remove("hidden");
+    };
 
-// Basculer entre menus
-function toggleMenu(hideMenu, showMenu) {
-    hideMenu.classList.add('hidden');
-    showMenu.classList.remove('hidden');
-}
-
-// Réinitialiser le score
-resetScoreButton.addEventListener('click', () => {
-    const newScore = prompt("Entrez le score initial :", "0");
-    if (newScore !== null && !isNaN(parseInt(newScore))) {
-        score = parseInt(newScore);
-        scoreHistory = [];
-        updateScore(0); // Met à jour sans modifier le score
-    }
-});
-
-// Gestion des boutons de sous-menus
-document.querySelectorAll('.noteButton').forEach(button => {
-    button.addEventListener('click', () => {
-        const points = parseInt(button.dataset.points);
-        updateScore(points);
-    });
-});
-
-document.querySelectorAll('.lifeButton').forEach(button => {
-    button.addEventListener('click', () => {
-        const points = parseInt(button.dataset.points);
-        updateScore(points);
-    });
-});
-
-// Afficher le graphique d'évolution du score
-function showGraph() {
-    toggleMenu(mainMenu, scoreGraphContainer);
-
-    // Détruire l'ancien graphique s'il existe
-    if (window.scoreChart) {
-        window.scoreChart.destroy();
-    }
-
-    // Vérifie si des données existent
-    if (scoreHistory.length === 0) {
-        alert("Pas de données à afficher dans le graphique !");
-        toggleMenu(scoreGraphContainer, mainMenu);
-        return;
-    }
-
-    // Crée le graphique
-    const ctx = scoreChartCanvas.getContext('2d');
-    window.scoreChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: scoreHistory.map(entry => entry.timestamp),
-            datasets: [{
-                label: 'Évolution du Score',
-                data: scoreHistory.map(entry => entry.score),
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                tension: 0.3
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: true },
-                tooltip: { callbacks: { label: ctx => `Score : ${ctx.raw}` } }
+    // Show graph
+    const showGraph = () => {
+        scoreGraphContainer.classList.remove("hidden");
+        const ctx = document.getElementById("scoreChart").getContext("2d");
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: Array.from({ length: history.length }, (_, i) => i + 1),
+                datasets: [{
+                    label: "Score",
+                    data: history,
+                    borderColor: "blue",
+                    borderWidth: 2,
+                }],
             },
-            scales: {
-                x: { title: { display: true, text: 'Temps' } },
-                y: { beginAtZero: true, title: { display: true, text: 'Score' } }
-            }
+            options: {
+                responsive: true,
+            },
+        });
+    };
+
+    // Event listeners
+    document.getElementById("showNotes").addEventListener("click", () => populateSubMenu(notesButtons));
+    document.getElementById("showLife").addEventListener("click", () => populateSubMenu(lifeButtons));
+    document.getElementById("resetScore").addEventListener("click", () => {
+        const initial = prompt("Entrez le score initial :", "0");
+        if (!isNaN(initial)) {
+            score = parseInt(initial, 10);
+            updateScore();
         }
     });
-}
+    document.getElementById("showGraph").addEventListener("click", showGraph);
+    document.getElementById("closeGraph").addEventListener("click", () => scoreGraphContainer.classList.add("hidden"));
 
-// Fermer le graphique
-closeGraphButton.addEventListener('click', () => {
-    toggleMenu(scoreGraphContainer, mainMenu);
+    // Initialize
+    updateScore();
 });
-
-// Interaction avec le slider
-scoreSlider.addEventListener('input', () => {
-    score = parseInt(scoreSlider.value);
-    updateScore(0); // Met à jour sans modifier le score
-});
-
-// Navigation dans les sous-menus
-document.getElementById('notesButton').addEventListener('click', () => {
-    toggleMenu(mainMenu, notesSubmenu);
-});
-
-document.getElementById('lifeButton').addEventListener('click', () => {
-    toggleMenu(mainMenu, lifeSubmenu);
-});
-
-// Retour au menu principal
-document.querySelectorAll('.backButton').forEach(button => {
-    button.addEventListener('click', () => {
-        toggleMenu(button.parentNode, mainMenu);
-    });
-});
-
-// Afficher le graphique via le bouton principal
-document.getElementById('showGraphButton').addEventListener('click', showGraph);
-
-// Initialisation
-updateScore(0); // Score initial

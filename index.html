@@ -1,58 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion du Score</title>
+    <title>Jeu de Score</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Ajout de Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
+        <h1>Jeu de Score</h1>
+        <p id="currentScore" class="hidden">Score actuel : <span id="score">0</span> points</p>
+
+        <!-- Curseur pour ajuster le score -->
+        <div id="sliderContainer" class="hidden">
+            <input type="range" id="scoreSlider" min="-10" max="50" step="1" value="0">
+            <span id="sliderValue">0</span>
+        </div>
+        <div id="sliderMessage" class="slider-message hidden">Normal</div>
+
         <!-- Menu principal -->
         <div id="mainMenu">
-            <button id="notesMenuButton">Notes</button>
-            <button id="lifeMenuButton">Vie courante</button>
-            <button id="viewGraphButton">Évolution du score</button>
+            <button id="showNotes">Notes</button>
+            <button id="showLife">Vie courante</button>
+            <button id="resetScore">Réinitialiser le score</button>
+            <button id="showGraph">Évolution du score</button>
         </div>
 
-        <!-- Sous-menu pour Notes -->
-        <div id="notesSubmenu" class="hidden">
-            <button class="noteButton" data-points="1">Entre 18 et 20</button>
-            <button class="noteButton" data-points="2">Entre 14 et 18</button>
-            <button class="noteButton" data-points="0">Entre 8 et 14</button>
-            <button class="noteButton" data-points="-2">Entre 4 et 8</button>
-            <button class="noteButton" data-points="-5">Moins de 4</button>
-            <button id="backToMenuNotes">Retour</button>
-        </div>
+        <!-- Sous-menus -->
+        <div id="subMenu" class="submenu hidden"></div>
 
-        <!-- Sous-menu pour Vie courante -->
-        <div id="lifeSubmenu" class="hidden">
-            <button class="lifeButton" data-points="1">Bon comportement</button>
-            <button class="lifeButton" data-points="2">Aide aux tâches</button>
-            <button class="lifeButton" data-points="-1">Mauvaise conduite</button>
-            <button class="lifeButton" data-points="-3">Problèmes répétés</button>
-            <button id="backToMenuLife">Retour</button>
-        </div>
-
-        <!-- Conteneur graphique -->
+        <!-- Conteneur du graphique -->
         <div id="scoreGraphContainer" class="hidden">
             <canvas id="scoreChart"></canvas>
-            <button id="closeGraph">Retour</button>
+            <button id="closeGraph">Fermer</button>
         </div>
-
-        <!-- Gestion du score -->
-        <div id="scoreDisplay">
-            <p id="scoreLabel">Score : <span id="score">0</span></p>
-            <div id="scoreControls">
-                <button id="setInitialScore">Initialiser le score</button>
-                <button id="resetScore">Réinitialiser le score</button>
-            </div>
-        </div>
-
-        <!-- Indicateur de changement -->
-        <div id="scoreChangeIndicator" class="hidden"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
