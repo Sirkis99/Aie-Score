@@ -3,57 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aie-Score</title>
+    <title>Jeu de Score</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Aie-Score</h1>
-        <p>Score actuel : <span id="score">0</span> points</p>
-
+        <h1>Jeu de Score</h1>
+        
+        <!-- Curseur pour afficher le score -->
         <div id="scoreSliderContainer">
-            <input type="range" id="scoreSlider" min="-10" max="25" value="0" step="1">
-            <span id="sliderValue">0</span> points
-        </div>
-
-        <div id="sliderMessage" class="slider-message">Normal</div>
-
-        <!-- Zone pour initialiser le score -->
-        <div id="scoreInitContainer" class="hidden">
-            <label for="scoreInit">Entrez le score initial :</label>
-            <input type="number" id="scoreInit">
-            <button id="initScore">Initialiser le score</button>
+            <p>Score actuel : <span id="score">10</span> points</p>
+            <input type="range" id="scoreSlider" min="-10" max="25" value="10" step="1">
+            <span id="sliderValue">10</span> points
+            <div id="sliderMessage" class="slider-message">Normal</div>
         </div>
 
         <!-- Boutons principaux -->
         <div class="main-buttons">
-            <button id="notesButton">Notes</button>
-            <button id="lifeButton">Vie courante</button>
+            <button id="showNotes">Notes</button>
+            <button id="showLife">Vie courante</button>
         </div>
 
-        <!-- Sous-menus -->
+        <!-- Menu Notes -->
         <div id="notesMenu" class="category hidden">
             <h2>Notes</h2>
-            <button class="noteButton" data-points="4">Entre 18 et 20</button>
-            <button class="noteButton" data-points="2">Entre 16 et 18</button>
-            <button class="noteButton" data-points="1">Entre 15 et 16</button>
-            <button class="noteButton" data-points="-1">Entre 12 et 14</button>
-            <button class="noteButton" data-points="-2">Entre 10 et 12</button>
-            <button class="noteButton" data-points="-3">Entre 5 et 10</button>
-            <button class="noteButton" data-points="-4">Entre 0 et 5</button>
+            <div class="category-buttons">
+                <button class="noteButton" data-points="4">Entre 18 et 20</button>
+                <button class="noteButton" data-points="2">Entre 16 et 18</button>
+                <button class="noteButton" data-points="1">Entre 15 et 16</button>
+                <button class="noteButton" data-points="-1">Entre 12 et 14</button>
+                <button class="noteButton" data-points="-2">Entre 10 et 12</button>
+                <button class="noteButton" data-points="-3">Entre 5 et 10</button>
+                <button class="noteButton" data-points="-4">Entre 0 et 5</button>
+            </div>
         </div>
 
+        <!-- Menu Vie courante -->
         <div id="lifeMenu" class="category hidden">
             <h2>Vie courante</h2>
-            <button class="lifeButton" data-points="-1">Oubli d'affaires</button>
-            <button class="lifeButton" data-points="1">Retrouvé le lendemain</button>
-            <button class="lifeButton" data-points="-1">Non retrouvé</button>
-            <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
+            <div class="category-buttons">
+                <button class="lifeButton" data-points="-1">Oubli d'affaires</button>
+                <button class="lifeButton" data-points="1">Retrouvé le lendemain</button>
+                <button class="lifeButton" data-points="-1">Non retrouvé</button>
+                <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
+            </div>
         </div>
 
-        <!-- Bouton Réinitialiser le score -->
-        <button id="resetScore">Réinitialiser le score</button>
+        <!-- Initialisation du score -->
+        <div id="scoreInitContainer" class="hidden">
+            <input type="number" id="scoreInit" placeholder="Entrer le score initial">
+            <button id="initScore">Valider le score initial</button>
+        </div>
+
+        <!-- Boutons supplémentaires -->
+        <div class="buttons">
+            <button id="resetScore">Réinitialiser le score</button>
+        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

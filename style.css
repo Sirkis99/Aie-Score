@@ -58,6 +58,13 @@ body {
     margin-top: 20px;
 }
 
+/* Disposer les boutons en grille pour former deux colonnes */
+.category-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
+    gap: 10px; /* Espace entre les boutons */
+}
+
 .category h2 {
     font-size: 1.4em;
     margin-bottom: 10px;
@@ -68,11 +75,9 @@ body {
     color: white;
     border: none;
     padding: 10px;
-    margin: 5px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    width: 45%;
     transition: background-color 0.3s;
 }
 
@@ -116,7 +121,7 @@ body {
 
 /* Pour les petits écrans */
 @media (max-width: 768px) {
-    .category button {
-        width: 100%;
+    .category-buttons {
+        grid-template-columns: 1fr; /* Une colonne pour les petits écrans */
     }
 }
