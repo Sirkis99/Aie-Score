@@ -1,4 +1,4 @@
-/* Assurer que le site utilise toute la largeur de l'écran */
+/* Style de base */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -21,7 +21,7 @@ body {
     max-width: 500px;
 }
 
-/* Curseur du score */
+/* Curseur */
 #scoreSlider {
     width: 90%;
     margin: 10px 0;
@@ -68,19 +68,14 @@ body {
     background-color: #1976D2;
 }
 
-/* Caché par défaut */
-.hidden {
-    display: none;
-}
-
-/* Curseur message */
+/* Messages */
 .slider-message {
     font-size: 18px;
     font-weight: bold;
     margin: 10px 0;
 }
 
-/* Boutons d'actions */
+/* Conteneur du graphique */
 #scoreGraphContainer {
     text-align: center;
     margin: 20px auto;
@@ -112,24 +107,14 @@ body {
     background-color: #E64A19;
 }
 
-/* Pour les petits écrans */
+/* Cacher les éléments */
+.hidden {
+    display: none;
+}
+
+/* Adaptation aux petits écrans */
 @media (max-width: 768px) {
     .container {
         padding: 15px;
-    }
-
-    .submenu button {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    #mainMenu button {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    #closeGraph {
-        font-size: 14px;
-        padding: 8px 16px;
     }
 }

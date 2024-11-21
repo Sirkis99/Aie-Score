@@ -8,7 +8,6 @@ const scoreElement = document.getElementById('score');
 const scoreSlider = document.getElementById('scoreSlider');
 const sliderValue = document.getElementById('sliderValue');
 const sliderMessage = document.getElementById('sliderMessage');
-const mainMenu = document.getElementById('mainMenu');
 const subMenu = document.getElementById('subMenu');
 const scoreGraphContainer = document.getElementById('scoreGraphContainer');
 const scoreChartElement = document.getElementById('scoreChart');
@@ -18,21 +17,20 @@ function updateScore(change = 0, buttonLabel = "") {
     score += change;
     scoreElement.textContent = score;
     sliderValue.textContent = score;
-    scoreSlider.value = score;
 
-    // Sauvegarder l'historique
+    // Historique
     if (change !== 0) {
         scoreHistory.push(score);
         buttonHistory.push(buttonLabel);
     }
 
-    // Mettre à jour le message du curseur
+    // Message
     if (score < 0) {
-        sliderMessage.textContent = "Plus rien";
+        sliderMessage.textContent = "Faible";
     } else if (score < 10) {
-        sliderMessage.textContent = "Normal";
+        sliderMessage.textContent = "Moyen";
     } else {
-        sliderMessage.textContent = "VBUCKS !";
+        sliderMessage.textContent = "Élevé";
     }
 }
 
@@ -42,9 +40,7 @@ function showSubMenu(buttons) {
     buttons.forEach(({ label, points }) => {
         const button = document.createElement('button');
         button.textContent = label;
-        button.addEventListener('click', () => {
-            updateScore(points, label);
-        });
+        button.addEventListener('click', () => updateScore(points, label));
         subMenu.appendChild(button);
     });
     subMenu.classList.remove('hidden');
@@ -68,26 +64,24 @@ function displayGraph() {
     scoreGraphContainer.classList.remove('hidden');
 }
 
-// Boutons principaux
+// Gestion des clics
 document.getElementById('showNotes').addEventListener('click', () => {
     showSubMenu([
-        { label: "Entre 18 et 20", points: 4 },
-        { label: "Entre 16 et 18", points: 2 },
-        { label: "Entre 0 et 5", points: -4 },
+        { label: "18-20", points: 5 },
+        { label: "16-18", points: 3 },
     ]);
 });
 
 document.getElementById('showLife').addEventListener('click', () => {
     showSubMenu([
-        { label: "Oubli d'affaires", points: -1 },
-        { label: "Retrouvé le lendemain", points: 1 },
+        { label: "Oubli d'affaires", points: -2 },
+        { label: "Retrouvé", points: 2 },
     ]);
 });
 
 document.getElementById('resetScore').addEventListener('click', () => {
-    score = parseInt(prompt("Score initial : ", "0")) || 0;
+    score = parseInt(prompt("Score initial :", "0")) || 0;
     scoreHistory = [];
-    buttonHistory = [];
     updateScore(0);
 });
 
