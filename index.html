@@ -5,47 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Score</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Jeu de Score</h1>
-        <p>Score actuel : <span id="score">0</span> points</p>
-
-        <!-- Curseur pour afficher le score -->
-        <div class="slider-container">
-            <input type="range" id="scoreSlider" min="-10" max="50" value="0" step="1" disabled>
-            <span id="sliderMessage">Normal</span>
+        <div class="score-container">
+            <p>Score actuel : <span id="score">0</span> points</p>
+            <input type="range" id="scoreSlider" min="-10" max="25" value="0" step="1">
+            <span id="sliderValue">0</span> points
+            <div id="sliderMessage" class="slider-message">Cliquez sur un bouton</div>
         </div>
 
-        <!-- Menu principal -->
         <div id="mainMenu">
-            <button id="showNotes">Notes</button>
-            <button id="showLife">Vie courante</button>
-            <button id="showGraph">Évolution du score</button>
-            <button id="resetScore">Réinitialiser le score</button>
+            <button id="showNotesMenu">Notes</button>
+            <button id="showLifeMenu">Vie courante</button>
+            <button id="resetScoreButton">Réinitialiser le score</button>
+            <button id="showGraphButton">Évolution du score</button>
         </div>
 
-        <!-- Sous-menu Notes -->
-        <div id="notesSubMenu" class="hidden">
-            <button data-points="4">Entre 18 et 20</button>
-            <button data-points="2">Entre 16 et 18</button>
-            <button data-points="1">Entre 15 et 16</button>
-            <button data-points="-1">Entre 12 et 14</button>
-            <button data-points="-2">Entre 10 et 12</button>
-            <button data-points="-3">Entre 5 et 10</button>
-            <button data-points="-4">Entre 0 et 5</button>
+        <div id="notesMenu" class="submenu hidden">
+            <button class="noteButton" data-points="4">Entre 18 et 20</button>
+            <button class="noteButton" data-points="2">Entre 16 et 18</button>
+            <button class="noteButton" data-points="1">Entre 15 et 16</button>
+            <button class="noteButton" data-points="-1">Entre 12 et 14</button>
+            <button class="noteButton" data-points="-2">Entre 10 et 12</button>
+            <button class="noteButton" data-points="-3">Entre 5 et 10</button>
+            <button class="noteButton" data-points="-4">Entre 0 et 5</button>
         </div>
 
-        <!-- Sous-menu Vie courante -->
-        <div id="lifeSubMenu" class="hidden">
-            <button data-points="-1">Oubli d'affaires</button>
-            <button data-points="1">Retrouvé le lendemain</button>
-            <button data-points="-1">Non retrouvé</button>
-            <button data-points="-5">Non retrouvé au bout de 3 jours</button>
+        <div id="lifeMenu" class="submenu hidden">
+            <button class="lifeButton" data-points="-1">Oubli d'affaires</button>
+            <button class="lifeButton" data-points="1">Retrouvé le lendemain</button>
+            <button class="lifeButton" data-points="-1">Non retrouvé</button>
+            <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
         </div>
 
-        <!-- Graphique -->
         <div id="scoreGraphContainer" class="hidden">
             <canvas id="scoreChart"></canvas>
             <button id="closeGraph">Fermer</button>
