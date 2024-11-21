@@ -1,144 +1,95 @@
-// Variables globales
 let score = 0;
 let scoreHistory = [];
-let buttonHistory = [];
 
-// Éléments du DOM
-const scoreElement = document.getElementById('score');
-const scoreSlider = document.getElementById('scoreSlider');
-const sliderValue = document.getElementById('sliderValue');
-const sliderMessage = document.getElementById('sliderMessage');
-const subMenu = document.getElementById('subMenu');
-const scoreGraphContainer = document.getElementById('scoreGraphContainer');
-const scoreChartElement = document.getElementById('scoreChart');
-const mainMenu = document.getElementById('mainMenu');
-const tempMessageContainer = document.getElementById('tempMessageContainer');
+const scoreElement = document.getElementById("score");
+const scoreSlider = document.getElementById("scoreSlider");
+const sliderValue = document.getElementById("sliderValue");
+const sliderMessage = document.getElementById("sliderMessage");
 
-// Mise à jour du score
-function updateScore(change = 0, buttonLabel = "") {
-    score += change;
+const resetScoreButton = document.getElementById("resetScoreButton");
+const showNotesMenu = document.getElementById("showNotesMenu");
+const showLifeMenu = document.getElementById("showLifeMenu");
+const showGraphButton = document.getElementById("showGraphButton");
+
+const notesMenu = document.getElementById("notesMenu");
+const lifeMenu = document.getElementById("lifeMenu");
+const mainMenu = document.getElementById("mainMenu");
+
+const scoreGraphContainer = document.getElementById("scoreGraphContainer");
+const scoreChartCanvas = document.getElementById("scoreChart");
+const closeGraph = document.getElementById("closeGraph");
+
+document.querySelectorAll(".backToMenu").forEach(button => {
+    button.addEventListener("click", () => {
+        notesMenu.classList.add("hidden");
+        lifeMenu.classList.add("hidden");
+        scoreGraphContainer.classList.add("hidden");
+        mainMenu.classList.remove("hidden");
+    });
+});
+
+function updateScore() {
     scoreElement.textContent = score;
+    scoreSlider.value = score;
     sliderValue.textContent = score;
-
-    // Historique
-    if (change !== 0) {
-        scoreHistory.push(score);
-        buttonHistory.push(buttonLabel);
-    }
-
-    // Affichage du message de score
-    if (score < 0) {
-        sliderMessage.textContent = "Faible";
-    } else if (score < 10) {
-        sliderMessage.textContent = "Moyen";
-    } else {
-        sliderMessage.textContent = "Élevé";
-    }
-
-    // Affichage du message temporaire (points gagnés ou perdus)
-    if (change !== 0) {
-        showTemporaryMessage(change);
-    }
+    scoreHistory.push(score);
 }
 
-// Fonction pour afficher les points gagnés/perdus temporairement
-function showTemporaryMessage(points) {
-    const message = document.createElement('div');
-    message.classList.add('tempMessage');
-    message.textContent = (points > 0 ? '+' : '') + points; // Affiche + ou - devant les points
-    tempMessageContainer.appendChild(message);
+resetScoreButton.addEventListener("click", () => {
+    const initialScore = prompt("Entrez le score initial :");
+    if (!isNaN(initialScore)) {
+        score = parseInt(initialScore);
+        scoreHistory = [score];
+        updateScore();
+    }
+});
 
-    // Animation pour afficher et masquer le message
-    setTimeout(() => {
-        message.style.opacity = 1;
-        message.style.transform = 'translateY(0)';
-    }, 50);
+showNotesMenu.addEventListener("click", () => {
+    mainMenu.classList.add("hidden");
+    notesMenu.classList.remove("hidden");
+});
 
-    // Enlève le message après 2 secondes
-    setTimeout(() => {
-        message.style.opacity = 0;
-        message.style.transform = 'translateY(-20px)';
-        setTimeout(() => {
-            message.remove();
-        }, 500);
-    }, 1500);
-}
+showLifeMenu.addEventListener("click", () => {
+    mainMenu.classList.add("hidden");
+    lifeMenu.classList.remove("hidden");
+});
 
-// Gestion des sous-menus
-function showSubMenu(buttons) {
-    mainMenu.classList.add('hidden');  // Masquer le menu principal
-    subMenu.innerHTML = "";
-    buttons.forEach(({ label, points }) => {
-        const button = document.createElement('button');
-        button.textContent = label;
-        button.addEventListener('click', () => updateScore(points, label));
-        subMenu.appendChild(button);
-    });
+showGraphButton.addEventListener("click", () => {
+    mainMenu.classList.add("hidden");
+    notesMenu.classList.add("hidden");
+    lifeMenu.classList.add("hidden");
+    scoreGraphContainer.classList.remove("hidden");
+    renderGraph();
+});
 
-    // Ajouter un bouton pour revenir au menu principal
-    const backButton = document.createElement('button');
-    backButton.textContent = 'Retour au menu';
-    backButton.addEventListener('click', () => {
-        subMenu.classList.add('hidden');
-        mainMenu.classList.remove('hidden');
-    });
-    subMenu.appendChild(backButton);
+closeGraph.addEventListener("click", () => {
+    scoreGraphContainer.classList.add("hidden");
+    mainMenu.classList.remove("hidden");
+});
 
-    subMenu.classList.remove('hidden');
-}
-
-// Affichage du graphique
-function displayGraph() {
-    const ctx = scoreChartElement.getContext('2d');
+function renderGraph() {
+    const ctx = scoreChartCanvas.getContext("2d");
     new Chart(ctx, {
-        type: 'line',
+        type: "line",
         data: {
-            labels: Array.from({ length: scoreHistory.length }, (_, i) => i + 1),
+            labels: scoreHistory.map((_, i) => i + 1),
             datasets: [{
-                label: 'Évolution du score',
+                label: "Évolution du score",
                 data: scoreHistory,
-                borderColor: 'blue',
-                backgroundColor: 'rgba(0, 0, 255, 0.2)',
-            }],
+                borderColor: "blue",
+                backgroundColor: "rgba(0, 0, 255, 0.1)"
+            }]
         },
+        options: { responsive: true }
     });
-    scoreGraphContainer.classList.remove('hidden');
-    mainMenu.classList.add('hidden'); // Masquer le menu principal
 }
 
-// Gestion des clics
-document.getElementById('showNotes').addEventListener('click', () => {
-    showSubMenu([
-        { label: "Entre 18 et 20", points: 4 },
-        { label: "Entre 16 et 18", points: 2 },
-        { label: "Entre 15 et 16", points: 1 },
-        { label: "Entre 12 et 14", points: -1 },
-        { label: "Entre 10 et 12", points: -2 },
-        { label: "Entre 5 et 10", points: -3 },
-        { label: "Entre 0 et 5", points: -4 },
-    ]);
+document.querySelectorAll(".noteButton, .lifeButton").forEach(button => {
+    button.addEventListener("click", () => {
+        const points = parseInt(button.getAttribute("data-points"));
+        score += points;
+        updateScore();
+    });
 });
 
-document.getElementById('showLife').addEventListener('click', () => {
-    showSubMenu([
-        { label: "Oubli d'affaires", points: -2 },
-        { label: "Retrouvé", points: 2 },
-    ]);
-});
-
-document.getElementById('resetScore').addEventListener('click', () => {
-    score = parseInt(prompt("Score initial :", "0")) || 0;
-    scoreHistory = [];
-    updateScore(0);
-});
-
-document.getElementById('showGraph').addEventListener('click', displayGraph);
-
-document.getElementById('closeGraph').addEventListener('click', () => {
-    scoreGraphContainer.classList.add('hidden');
-    mainMenu.classList.remove('hidden');  // Réafficher le menu principal
-    subMenu.classList.add('hidden'); // Masquer le sous-menu
-});
-
-// Initialisation
-updateScore(0);
+updateScore();

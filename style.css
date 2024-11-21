@@ -1,4 +1,3 @@
-/* Assurer que le site utilise toute la largeur de l'écran */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -10,7 +9,6 @@ body {
     padding: 0;
 }
 
-/* Conteneur principal */
 .container {
     text-align: center;
     background-color: white;
@@ -18,93 +16,43 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px; /* Augmenté pour accommoder deux colonnes */
+    max-width: 500px;
 }
 
-/* Curseur du score */
 #scoreSlider {
     width: 90%;
     margin: 10px 0;
 }
 
-/* Affichage du score */
-#score {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 10px;
+#mainMenu button,
+.submenu button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px;
+    margin: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    width: 100%;
 }
 
-#sliderValue {
-    font-size: 20px;
+#mainMenu button:hover,
+.submenu button:hover {
+    background-color: #45a049;
 }
 
-/* Message du slider */
+.hidden {
+    display: none;
+}
+
 .slider-message {
     font-size: 18px;
     font-weight: bold;
     margin: 10px 0;
 }
 
-/* Boutons principaux */
-#mainMenu button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    margin: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background-color 0.3s;
-    width: 100%;
-}
-
-#mainMenu button:hover {
-    background-color: #45a049;
-}
-
-/* Sous-menus */
-.submenu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
-    gap: 10px; /* Espacement entre les boutons */
-    margin-top: 10px;
-}
-
-.submenu button {
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    padding: 15px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-}
-
-.submenu button:hover {
-    background-color: #1976D2;
-}
-
-/* Boutons d'actions */
-.buttons button {
-    background-color: #FF5722;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    margin: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background-color 0.3s;
-    width: 100%;
-}
-
-.buttons button:hover {
-    background-color: #E64A19;
-}
-
-/* Conteneur du graphique */
 #scoreGraphContainer {
     text-align: center;
     margin: 20px auto;
@@ -121,29 +69,6 @@ body {
     height: 300px;
 }
 
-/* Message temporaire pour les points gagnés ou perdus */
-#tempMessageContainer {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-}
-
-.tempMessage {
-    background-color: rgba(0, 123, 255, 0.7);
-    color: white;
-    padding: 10px 20px;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 5px;
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 0.5s, transform 0.5s;
-    margin: 5px;
-}
-
-/* Bouton fermer le graphique */
 #closeGraph {
     background-color: #FF5722;
     color: white;
@@ -157,30 +82,4 @@ body {
 
 #closeGraph:hover {
     background-color: #E64A19;
-}
-
-/* Pour les petits écrans */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    .slider-message {
-        font-size: 16px;
-    }
-
-    .submenu button {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    #mainMenu button, .buttons button {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    #closeGraph {
-        font-size: 14px;
-        padding: 8px 16px;
-    }
 }
