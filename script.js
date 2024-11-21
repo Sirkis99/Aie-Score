@@ -1,95 +1,129 @@
+// Variables globales
 let score = 0;
-let scoreHistory = [];
+const scoreHistory = [];
+const scoreElement = document.getElementById('score');
+const scoreChangeIndicator = document.getElementById('scoreChangeIndicator');
 
-const scoreElement = document.getElementById("score");
-const scoreSlider = document.getElementById("scoreSlider");
-const sliderValue = document.getElementById("sliderValue");
-const sliderMessage = document.getElementById("sliderMessage");
+// Gestion des menus
+const mainMenu = document.getElementById('mainMenu');
+const notesSubmenu = document.getElementById('notesSubmenu');
+const lifeSubmenu = document.getElementById('lifeSubmenu');
+const scoreGraphContainer = document.getElementById('scoreGraphContainer');
 
-const resetScoreButton = document.getElementById("resetScoreButton");
-const showNotesMenu = document.getElementById("showNotesMenu");
-const showLifeMenu = document.getElementById("showLifeMenu");
-const showGraphButton = document.getElementById("showGraphButton");
-
-const notesMenu = document.getElementById("notesMenu");
-const lifeMenu = document.getElementById("lifeMenu");
-const mainMenu = document.getElementById("mainMenu");
-
-const scoreGraphContainer = document.getElementById("scoreGraphContainer");
-const scoreChartCanvas = document.getElementById("scoreChart");
-const closeGraph = document.getElementById("closeGraph");
-
-document.querySelectorAll(".backToMenu").forEach(button => {
-    button.addEventListener("click", () => {
-        notesMenu.classList.add("hidden");
-        lifeMenu.classList.add("hidden");
-        scoreGraphContainer.classList.add("hidden");
-        mainMenu.classList.remove("hidden");
-    });
+// Boutons principaux
+document.getElementById('notesMenuButton').addEventListener('click', () => {
+    toggleMenu(mainMenu, notesSubmenu);
 });
 
-function updateScore() {
-    scoreElement.textContent = score;
-    scoreSlider.value = score;
-    sliderValue.textContent = score;
-    scoreHistory.push(score);
-}
+document.getElementById('lifeMenuButton').addEventListener('click', () => {
+    toggleMenu(mainMenu, lifeSubmenu);
+});
 
-resetScoreButton.addEventListener("click", () => {
-    const initialScore = prompt("Entrez le score initial :");
+document.getElementById('viewGraphButton').addEventListener('click', showGraph);
+
+// Boutons de retour
+document.getElementById('backToMenuNotes').addEventListener('click', () => {
+    toggleMenu(notesSubmenu, mainMenu);
+});
+
+document.getElementById('backToMenuLife').addEventListener('click', () => {
+    toggleMenu(lifeSubmenu, mainMenu);
+});
+
+// Boutons de gestion du score
+document.getElementById('setInitialScore').addEventListener('click', () => {
+    const initialScore = parseInt(prompt('Entrez le score initial :', '0'), 10);
     if (!isNaN(initialScore)) {
-        score = parseInt(initialScore);
-        scoreHistory = [score];
+        score = initialScore;
         updateScore();
     }
 });
 
-showNotesMenu.addEventListener("click", () => {
-    mainMenu.classList.add("hidden");
-    notesMenu.classList.remove("hidden");
+document.getElementById('resetScore').addEventListener('click', () => {
+    score = 0;
+    updateScore();
 });
 
-showLifeMenu.addEventListener("click", () => {
-    mainMenu.classList.add("hidden");
-    lifeMenu.classList.remove("hidden");
+// Boutons des sous-menus
+document.querySelectorAll('.noteButton, .lifeButton').forEach(button => {
+    button.addEventListener('click', () => {
+        const points = parseInt(button.getAttribute('data-points'), 10);
+        if (!isNaN(points)) {
+            score += points;
+            showScoreChange(points);
+            updateScore();
+        }
+    });
 });
 
-showGraphButton.addEventListener("click", () => {
-    mainMenu.classList.add("hidden");
-    notesMenu.classList.add("hidden");
-    lifeMenu.classList.add("hidden");
-    scoreGraphContainer.classList.remove("hidden");
-    renderGraph();
+// Fermer le graphique
+document.getElementById('closeGraph').addEventListener('click', () => {
+    toggleMenu(scoreGraphContainer, mainMenu);
 });
 
-closeGraph.addEventListener("click", () => {
-    scoreGraphContainer.classList.add("hidden");
-    mainMenu.classList.remove("hidden");
-});
+// Mise à jour du score
+function updateScore() {
+    scoreElement.textContent = score;
+    logScoreChange(score);
+}
 
-function renderGraph() {
-    const ctx = scoreChartCanvas.getContext("2d");
-    new Chart(ctx, {
-        type: "line",
+// Affichage du changement de score
+function showScoreChange(change) {
+    scoreChangeIndicator.textContent = (change > 0 ? '+' : '') + change;
+    scoreChangeIndicator.classList.remove('hidden');
+    setTimeout(() => scoreChangeIndicator.classList.add('hidden'), 2000);
+}
+
+// Historique des scores
+function logScoreChange(newScore) {
+    const timestamp = new Date().toLocaleTimeString();
+    scoreHistory.push({ timestamp, score: newScore });
+}
+
+// Basculer les menus
+function toggleMenu(hideElement, showElement) {
+    hideElement.classList.add('hidden');
+    showElement.classList.remove('hidden');
+}
+
+// Afficher le graphique
+function showGraph() {
+    toggleMenu(mainMenu, scoreGraphContainer);
+
+    // Détruire l'ancien graphique s'il existe
+    if (window.scoreChart) {
+        window.scoreChart.destroy();
+    }
+
+    // Créer le graphique
+    const ctx = document.getElementById('scoreChart').getContext('2d');
+    window.scoreChart = new Chart(ctx, {
+        type: 'line',
         data: {
-            labels: scoreHistory.map((_, i) => i + 1),
+            labels: scoreHistory.map(entry => entry.timestamp),
             datasets: [{
-                label: "Évolution du score",
-                data: scoreHistory,
-                borderColor: "blue",
-                backgroundColor: "rgba(0, 0, 255, 0.1)"
+                label: 'Évolution du Score',
+                data: scoreHistory.map(entry => entry.score),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.3
             }]
         },
-        options: { responsive: true }
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true },
+                tooltip: { callbacks: { label: ctx => `Score : ${ctx.raw}` } }
+            },
+            scales: {
+                x: { title: { display: true, text: 'Temps' } },
+                y: { beginAtZero: true, title: { display: true, text: 'Score' } }
+            }
+        }
     });
 }
 
-document.querySelectorAll(".noteButton, .lifeButton").forEach(button => {
-    button.addEventListener("click", () => {
-        const points = parseInt(button.getAttribute("data-points"));
-        score += points;
-        updateScore();
-    });
-});
-
+// Initialiser
 updateScore();
