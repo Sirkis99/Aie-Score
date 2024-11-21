@@ -11,6 +11,7 @@ const sliderMessage = document.getElementById('sliderMessage');
 const subMenu = document.getElementById('subMenu');
 const scoreGraphContainer = document.getElementById('scoreGraphContainer');
 const scoreChartElement = document.getElementById('scoreChart');
+const mainMenu = document.getElementById('mainMenu');
 
 // Mise à jour du score
 function updateScore(change = 0, buttonLabel = "") {
@@ -36,6 +37,7 @@ function updateScore(change = 0, buttonLabel = "") {
 
 // Gestion des sous-menus
 function showSubMenu(buttons) {
+    mainMenu.classList.add('hidden');  // Masquer le menu principal
     subMenu.innerHTML = "";
     buttons.forEach(({ label, points }) => {
         const button = document.createElement('button');
@@ -62,6 +64,7 @@ function displayGraph() {
         },
     });
     scoreGraphContainer.classList.remove('hidden');
+    mainMenu.classList.add('hidden'); // Masquer le menu principal
 }
 
 // Gestion des clics
@@ -86,8 +89,11 @@ document.getElementById('resetScore').addEventListener('click', () => {
 });
 
 document.getElementById('showGraph').addEventListener('click', displayGraph);
+
 document.getElementById('closeGraph').addEventListener('click', () => {
     scoreGraphContainer.classList.add('hidden');
+    mainMenu.classList.remove('hidden');  // Réafficher le menu principal
+    subMenu.classList.add('hidden'); // Masquer le sous-menu
 });
 
 // Initialisation
