@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aie-Score</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Importation de Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
     <div class="container">
         <h1>Aie-Score</h1>
@@ -29,10 +26,16 @@
             <button id="showGraphButton">Évolution du score</button>
         </div>
 
-        <!-- Sous-menu -->
-        <div id="subMenu" class="submenu hidden">
-            <div id="subMenuButtons" class="button-container"></div>
-            <button id="backToMainMenu" class="backToMenu">Retour</button>
+        <!-- Sous-menu Notes -->
+        <div id="notesMenu" class="submenu hidden">
+            <div id="subMenuButtons"></div>
+            <button id="backToMenu">Retour</button>
+        </div>
+
+        <!-- Sous-menu Vie courante -->
+        <div id="lifeMenu" class="submenu hidden">
+            <div id="subMenuButtons"></div>
+            <button id="backToMenu">Retour</button>
         </div>
 
         <!-- Conteneur du graphique -->
@@ -40,9 +43,6 @@
             <canvas id="scoreChart"></canvas>
             <button id="closeGraph">Fermer</button>
         </div>
-
-        <!-- Conteneur pour les messages temporaires -->
-        <div id="tempMessageContainer"></div>
     </div>
 
     <script src="script.js"></script>

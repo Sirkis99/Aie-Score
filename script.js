@@ -9,7 +9,7 @@ const scoreElement = document.getElementById('score');
 const scoreSlider = document.getElementById('scoreSlider');
 const sliderValue = document.getElementById('sliderValue');
 const sliderMessage = document.getElementById('sliderMessage');
-const subMenu = document.getElementById('subMenu');
+const subMenu = document.getElementById('notesMenu');  // On va changer en dynamique
 const subMenuButtons = document.getElementById('subMenuButtons');
 const mainMenu = document.getElementById('mainMenu');
 const tempMessageContainer = document.getElementById('tempMessageContainer');
@@ -38,6 +38,7 @@ function showTemporaryMessage(points) {
     const message = document.createElement('div');
     message.classList.add('tempMessage');
     message.textContent = points > 0 ? `+${points}` : `${points}`;
+    message.style.color = points > 0 ? 'green' : 'red';
     tempMessageContainer.appendChild(message);
 
     setTimeout(() => message.remove(), 1500);
