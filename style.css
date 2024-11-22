@@ -1,43 +1,45 @@
-/* Style de base */
+/* Styles de base */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f8f8f8;
+    color: #333;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
+/* Conteneur principal */
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
+/* Titre */
 h1 {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
+    color: #2c3e50;
 }
 
-/* Styles pour le score et le slider */
+/* Conteneur du score */
 .score-container {
-    text-align: center;
     margin-bottom: 20px;
+    font-size: 18px;
 }
 
+/* Slider */
 #scoreSlider {
-    width: 100%;
-    margin-top: 10px;
+    width: 80%;
+    margin: 10px 0;
 }
 
+/* Message du slider */
 .slider-message {
+    font-size: 16px;
     margin-top: 10px;
-    font-style: italic;
+    font-weight: bold;
 }
 
-/* Styles pour les boutons du menu principal */
+/* Menu principal */
 #mainMenu button {
     padding: 10px 20px;
     font-size: 16px;
@@ -54,35 +56,84 @@ h1 {
     background-color: #2980b9;
 }
 
-/* Styles pour les boutons des sous-menus */
-#subMenuButtons button {
-    padding: 10px;
+/* Sous-menus */
+.hidden {
+    display: none;
+}
+
+.submenu {
+    margin-top: 20px;
+}
+
+.submenu button {
+    padding: 10px 20px;
     font-size: 16px;
     background-color: #f0f0f0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 10px;
     transition: background-color 0.3s ease;
-    margin-bottom: 10px;
 }
 
-#subMenuButtons button:hover {
+.submenu button:hover {
     background-color: #dcdcdc;
 }
 
-/* Masquer les éléments */
-.hidden {
-    display: none;
+/* Bouton Retour */
+.backToMenu {
+    background-color: #e74c3c;
+    color: white;
 }
 
-/* Styles pour le graphique */
+.backToMenu:hover {
+    background-color: #c0392b;
+}
+
+/* Conteneur du graphique */
 #scoreGraphContainer {
-    text-align: center;
     margin-top: 20px;
 }
 
-#scoreChart {
+canvas {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+    height: 300px;
+}
+
+/* Messages temporaires */
+#tempMessageContainer {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.tempMessage {
+    padding: 10px;
+    margin: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #27ae60;
+    color: white;
+    border-radius: 5px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInOut 1.5s forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 }
