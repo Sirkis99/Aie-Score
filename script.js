@@ -45,6 +45,14 @@ function showTemporaryMessage(points) {
     const message = document.createElement('div');
     message.classList.add('tempMessage');
     message.textContent = points > 0 ? `+${points}` : `${points}`;
+	// Ajouter une classe pour les points négatifs (rouge)
+    if (points < 0) {
+		message.textContent = `${points} 😡`; // Points négatifs
+        message.style.backgroundColor = '#e74c3c'; // Rouge
+    } else {
+		message.textContent = `+${points} 😊`; // Points positifs
+        message.style.backgroundColor = '#27ae60'; // Vert (points positifs)
+    }
     tempMessageContainer.appendChild(message);
 
     // Animation de disparition du message après 1.5 secondes
