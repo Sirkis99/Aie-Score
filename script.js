@@ -20,6 +20,9 @@ function updateScore(change = 0, buttonLabel = "") {
     score += change;
     scoreElement.textContent = score;
     sliderValue.textContent = score;
+	
+	// Met à jour la valeur du curseur
+    scoreSlider.value = score;  // Met à jour la position du curseur avec la nouvelle valeur du score
 
     // Historique
     if (change !== 0) {
