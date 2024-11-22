@@ -15,7 +15,7 @@ const lifeMenu = document.getElementById('lifeMenu');
 const scoreGraphContainer = document.getElementById('scoreGraphContainer');
 const scoreChartElement = document.getElementById('scoreChart');
 
-// Mise à jour du score
+// Fonction pour mettre à jour le score
 function updateScore(change = 0, buttonLabel = "") {
     score += change;
     scoreElement.textContent = score;
@@ -27,7 +27,7 @@ function updateScore(change = 0, buttonLabel = "") {
         buttonHistory.push(buttonLabel);  // Ajoute l'étiquette du bouton
     }
 
-    // Message
+    // Message du slider
     if (score < 0) {
         sliderMessage.textContent = "Faible";
     } else if (score < 10) {
@@ -40,7 +40,7 @@ function updateScore(change = 0, buttonLabel = "") {
     showTemporaryMessage(change);
 }
 
-// Affichage temporaire des points
+// Affichage du message temporaire
 function showTemporaryMessage(points) {
     const message = document.createElement('div');
     message.classList.add('tempMessage');
@@ -60,7 +60,7 @@ function showTemporaryMessage(points) {
     }, 1500);
 }
 
-// Gestion de l'affichage des sous-menus
+// Affichage des sous-menus
 function showMenu(menuToShow) {
     // Masquer tous les menus
     notesMenu.classList.add('hidden');
@@ -69,7 +69,7 @@ function showMenu(menuToShow) {
     scoreGraphContainer.classList.add('hidden');
 
     // Afficher le menu sélectionné
-    console.log("Affichage du menu:", menuToShow);  // Log pour vérifier quel menu est affiché
+    console.log("Affichage du menu:", menuToShow);
     menuToShow.classList.remove('hidden');
 }
 
@@ -111,31 +111,37 @@ function handleSubMenuButtons(menu, buttonClass) {
     });
 }
 
-// Événements de clic
-document.getElementById('showNotesMenu').addEventListener('click', () => {
-    console.log("Affichage du menu Notes");
-    showMenu(notesMenu);
-});
-document.getElementById('showLifeMenu').addEventListener('click', () => {
-    console.log("Affichage du menu Vie courante");
-    showMenu(lifeMenu);
-});
-document.getElementById('resetScoreButton').addEventListener('click', () => {
-    score = parseInt(prompt("Score initial :", "0")) || 0;
-    scoreHistory = [];
-    updateScore(0);
-});
-document.getElementById('showGraphButton').addEventListener('click', () => {
-    console.log("Affichage du graphique");
-    displayGraph();
-});
-document.getElementById('closeGraph').addEventListener('click', () => {
-    scoreGraphContainer.classList.add('hidden');
-});
-
-// Initialisation du DOM
+// Gestion des événements de clic
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM chargé et prêt");
+
+    // Attacher les événements sur les boutons principaux
+    document.getElementById('showNotesMenu').addEventListener('click', () => {
+        console.log("Affichage du menu Notes");
+        showMenu(notesMenu);
+    });
+
+    document.getElementById('showLifeMenu').addEventListener('click', () => {
+        console.log("Affichage du menu Vie courante");
+        showMenu(lifeMenu);
+    });
+
+    document.getElementById('resetScoreButton').addEventListener('click', () => {
+        score = parseInt(prompt("Score initial :", "0")) || 0;
+        scoreHistory = [];
+        updateScore(0);
+    });
+
+    document.getElementById('showGraphButton').addEventListener('click', () => {
+        console.log("Affichage du graphique");
+        displayGraph();
+    });
+
+    document.getElementById('closeGraph').addEventListener('click', () => {
+        scoreGraphContainer.classList.add('hidden');
+    });
+
+    // Attacher les événements pour les sous-menus
     handleSubMenuButtons(notesMenu, '.noteButton');
     handleSubMenuButtons(lifeMenu, '.lifeButton');
 });
