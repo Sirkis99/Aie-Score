@@ -20,8 +20,12 @@ function updateScore(change = 0, buttonLabel = "") {
     score += change;
     scoreElement.textContent = score;
     sliderValue.textContent = score;
-	
-	// Met à jour la valeur du curseur
+
+    // Assurez-vous que le score reste dans la plage définie pour le curseur
+    if (score < -10) score = -10;
+    if (score > 25) score = 25;
+
+    // Met à jour la valeur du curseur
     scoreSlider.value = score;  // Met à jour la position du curseur avec la nouvelle valeur du score
 
     // Historique
