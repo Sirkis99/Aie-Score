@@ -23,9 +23,10 @@ function updateScore(change = 0, buttonLabel = "") {
 
     // Historique
     if (change !== 0) {
-        scoreHistory.push(score);
-        buttonHistory.push(buttonLabel);
+        scoreHistory.push(score);  // Ajoute le score au tableau d'historique
+        buttonHistory.push(buttonLabel);  // Ajoute l'étiquette du bouton
     }
+}
 
     // Message
     if (score < 0) {
@@ -74,20 +75,20 @@ function showMenu(menuToShow) {
 
 // Affichage du graphique
 function displayGraph() {
-    const ctx = scoreChartElement.getContext('2d');
+    const ctx = scoreChartElement.getContext('2d');  // Obtient le contexte du canvas
     new Chart(ctx, {
-        type: 'line',
+        type: 'line',  // Type de graphique (ici un graphique linéaire)
         data: {
-            labels: Array.from({ length: scoreHistory.length }, (_, i) => i + 1),
+            labels: Array.from({ length: scoreHistory.length }, (_, i) => i + 1),  // Génère les labels pour l'axe X
             datasets: [{
                 label: 'Évolution du score',
-                data: scoreHistory,
-                borderColor: 'blue',
-                backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                data: scoreHistory,  // Données des scores à afficher
+                borderColor: 'blue',  // Couleur de la ligne du graphique
+                backgroundColor: 'rgba(0, 0, 255, 0.2)',  // Couleur d'arrière-plan de la ligne
             }],
         },
     });
-    showMenu(scoreGraphContainer);
+    showMenu(scoreGraphContainer);  // Affiche le conteneur du graphique
 }
 
 // Gestion des clics sur les boutons de sous-menus
