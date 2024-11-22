@@ -1,4 +1,4 @@
-/* Styles de base pour le body */
+/* Styles de base */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f8f8;
@@ -15,7 +15,7 @@ body {
     text-align: center;
 }
 
-/* Styles pour le titre */
+/* Titre */
 h1 {
     color: #2c3e50;
 }
@@ -26,30 +26,20 @@ h1 {
     font-size: 18px;
 }
 
-/* Style pour le slider */
+/* Slider */
 #scoreSlider {
     width: 80%;
     margin: 10px 0;
 }
 
-/* Affichage du message du slider */
+/* Message du slider */
 .slider-message {
     font-size: 16px;
     margin-top: 10px;
     font-weight: bold;
 }
 
-/* Masquer les éléments invisibles */
-.hidden {
-    display: none;
-}
-
 /* Menu principal */
-#mainMenu {
-    margin-top: 30px;
-}
-
-/* Style des boutons du menu principal */
 #mainMenu button {
     padding: 10px 20px;
     font-size: 16px;
@@ -62,55 +52,42 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-/* Effet de survol des boutons du menu principal */
 #mainMenu button:hover {
     background-color: #2980b9;
 }
 
-/* Styles pour les sous-menus (Notes et Vie courante) */
+/* Sous-menus */
+.hidden {
+    display: none;
+}
+
 .submenu {
     margin-top: 20px;
 }
 
-/* Conteneur pour les boutons des sous-menus */
-.button-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Créer 2 colonnes */
-    gap: 10px; /* Espacement entre les boutons */
-    margin-top: 20px;
-}
-
-/* Styles pour les boutons des sous-menus */
-.button-container button {
-    padding: 10px;
+.submenu button {
+    padding: 10px 20px;
     font-size: 16px;
     background-color: #f0f0f0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 10px;
     transition: background-color 0.3s ease;
 }
 
-/* Effet de survol des boutons des sous-menus */
-.button-container button:hover {
+.submenu button:hover {
     background-color: #dcdcdc;
 }
 
 /* Bouton Retour */
 .backToMenu {
-    grid-column: span 2; /* Le bouton de retour prend toute la largeur des deux colonnes */
-    padding: 10px;
-    font-size: 16px;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    background-color: #e74c3c;
+    color: white;
 }
 
-/* Effet de survol pour le bouton de retour */
 .backToMenu:hover {
-    background-color: #dcdcdc;
+    background-color: #c0392b;
 }
 
 /* Conteneur du graphique */
@@ -118,13 +95,12 @@ h1 {
     margin-top: 20px;
 }
 
-/* Styles du graphique */
 canvas {
     width: 100%;
     height: 300px;
 }
 
-/* Message temporaire des points */
+/* Messages temporaires */
 #tempMessageContainer {
     position: absolute;
     top: 20px;
@@ -133,7 +109,6 @@ canvas {
     pointer-events: none;
 }
 
-/* Style pour les messages temporaires */
 .tempMessage {
     padding: 10px;
     margin: 5px;
@@ -148,7 +123,6 @@ canvas {
     animation: fadeInOut 1.5s forwards;
 }
 
-/* Animation des messages temporaires */
 @keyframes fadeInOut {
     0% {
         opacity: 0;
@@ -163,11 +137,3 @@ canvas {
         transform: translateY(-20px);
     }
 }
-/* Styles pour le conteneur de sous-menu */
-#subMenu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
