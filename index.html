@@ -26,25 +26,10 @@
             <button id="showGraphButton">Évolution du score</button>
         </div>
 
-        <!-- Sous-menu Notes -->
-        <div id="notesMenu" class="submenu hidden">
-            <button class="noteButton" data-points="4">Entre 18 et 20</button>
-            <button class="noteButton" data-points="2">Entre 16 et 18</button>
-            <button class="noteButton" data-points="1">Entre 15 et 16</button>
-            <button class="noteButton" data-points="-1">Entre 12 et 14</button>
-            <button class="noteButton" data-points="-2">Entre 10 et 12</button>
-            <button class="noteButton" data-points="-3">Entre 5 et 10</button>
-            <button class="noteButton" data-points="-4">Entre 0 et 5</button>
-            <button class="backToMenu">Retour</button>
-        </div>
-
-        <!-- Sous-menu Vie courante -->
-        <div id="lifeMenu" class="submenu hidden">
-            <button class="lifeButton" data-points="-1">Oubli d'affaires</button>
-            <button class="lifeButton" data-points="1">Retrouvé le lendemain</button>
-            <button class="lifeButton" data-points="-1">Non retrouvé</button>
-            <button class="lifeButton" data-points="-5">Non retrouvé au bout de 3 jours</button>
-            <button class="backToMenu">Retour</button>
+        <!-- Sous-menu -->
+        <div id="subMenu" class="submenu hidden">
+            <div id="subMenuButtons" class="button-container"></div>
+            <button id="backToMainMenu" class="backToMenu">Retour</button>
         </div>
 
         <!-- Conteneur du graphique -->
@@ -53,7 +38,7 @@
             <button id="closeGraph">Fermer</button>
         </div>
 
-        <!-- Conteneur des messages temporaires -->
+        <!-- Conteneur pour les messages temporaires -->
         <div id="tempMessageContainer"></div>
     </div>
 
