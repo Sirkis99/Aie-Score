@@ -1,55 +1,43 @@
-/* Styles de base pour le body */
+/* Style de base */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    color: #333;
+    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    padding: 20px;
 }
 
-/* Conteneur principal */
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles pour le titre */
 h1 {
-    color: #2c3e50;
-}
-
-/* Conteneur du score */
-.score-container {
+    text-align: center;
+    font-size: 2em;
     margin-bottom: 20px;
-    font-size: 18px;
 }
 
-/* Style pour le slider */
+/* Styles pour le score et le slider */
+.score-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 #scoreSlider {
-    width: 80%;
-    margin: 10px 0;
-}
-
-/* Affichage du message du slider */
-.slider-message {
-    font-size: 16px;
+    width: 100%;
     margin-top: 10px;
-    font-weight: bold;
 }
 
-/* Masquer les éléments invisibles */
-.hidden {
-    display: none;
+.slider-message {
+    margin-top: 10px;
+    font-style: italic;
 }
 
-/* Menu principal */
-#mainMenu {
-    margin-top: 30px;
-}
-
-/* Style des boutons du menu principal */
+/* Styles pour les boutons du menu principal */
 #mainMenu button {
     padding: 10px 20px;
     font-size: 16px;
@@ -62,22 +50,8 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-/* Effet de survol des boutons du menu principal */
 #mainMenu button:hover {
     background-color: #2980b9;
-}
-
-/* Styles pour les sous-menus (Notes et Vie courante) */
-.submenu {
-    margin-top: 20px;
-}
-
-/* Conteneur pour les boutons des sous-menus */
-#subMenuButtons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Créer 2 colonnes */
-    gap: 10px; /* Espacement entre les boutons */
-    margin-top: 20px;
 }
 
 /* Styles pour les boutons des sous-menus */
@@ -89,20 +63,26 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-bottom: 10px;
 }
 
-/* Effet de survol des boutons des sous-menus */
 #subMenuButtons button:hover {
     background-color: #dcdcdc;
 }
 
-/* Conteneur du graphique */
+/* Masquer les éléments */
+.hidden {
+    display: none;
+}
+
+/* Styles pour le graphique */
 #scoreGraphContainer {
+    text-align: center;
     margin-top: 20px;
 }
 
-/* Styles du graphique */
-canvas {
+#scoreChart {
     width: 100%;
-    height: 300px;
+    max-width: 600px;
+    margin: 0 auto;
 }
