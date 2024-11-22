@@ -73,23 +73,33 @@ function showMenu(menuToShow) {
     menuToShow.classList.remove('hidden');
 }
 
+
 // Affichage du graphique
 function displayGraph() {
-    const ctx = scoreChartElement.getContext('2d');  // Obtient le contexte du canvas
-    new Chart(ctx, {
-        type: 'line',  // Type de graphique (ici un graphique linéaire)
-        data: {
-            labels: Array.from({ length: scoreHistory.length }, (_, i) => i + 1),  // Génère les labels pour l'axe X
-            datasets: [{
-                label: 'Évolution du score',
-                data: scoreHistory,  // Données des scores à afficher
-                borderColor: 'blue',  // Couleur de la ligne du graphique
-                backgroundColor: 'rgba(0, 0, 255, 0.2)',  // Couleur d'arrière-plan de la ligne
-            }],
-        },
-    });
+    if (window.chart) {  // Si le graphique existe déjà
+        window.chart.data.labels = Array.from({ length: scoreHistory.length }, (_, i) => i + 1);
+        window.chart.data.datasets[0].data = scoreHistory;
+        window.chart.update();  // Met à jour le graphique existant
+    } else {  // Si le graphique n'existe pas, créez-le
+        const ctx = scoreChartElement.getContext('2d');
+        window.chart = new Chart(ctx, {
+            type: 'line', // Type de graphique
+            data: {
+                labels: Array.from({ length: scoreHistory.length }, (_, i) => i + 1),
+                datasets: [{
+                    label: 'Évolution du score',
+                    data: scoreHistory,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                }],
+            },
+        });
+    }
+
     showMenu(scoreGraphContainer);  // Affiche le conteneur du graphique
 }
+
+
 
 // Gestion des clics sur les boutons de sous-menus
 function handleSubMenuButtons(menuElement, buttonClass) {
@@ -123,5 +133,9 @@ document.getElementById('showGraphButton').addEventListener('click', displayGrap
 document.getElementById('closeGraph').addEventListener('click', () => showMenu(mainMenu));
 
 // Initialisation des sous-menus
+// Assurez-vous que le DOM est prêt avant d'ajouter des événements
+document.addEventListener('DOMContentLoaded', () => {
 handleSubMenuButtons(notesMenu, '.noteButton');
 handleSubMenuButtons(lifeMenu, '.lifeButton');
+});
+

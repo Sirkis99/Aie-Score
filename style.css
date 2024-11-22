@@ -137,3 +137,7 @@ canvas {
         transform: translateY(-20px);
     }
 }
+/* Sous-menus cachés par défaut */
+.hidden {
+    display: none;
+}
