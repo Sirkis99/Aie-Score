@@ -26,7 +26,6 @@ function updateScore(change = 0, buttonLabel = "") {
         scoreHistory.push(score);  // Ajoute le score au tableau d'historique
         buttonHistory.push(buttonLabel);  // Ajoute l'étiquette du bouton
     }
-}
 
     // Message
     if (score < 0) {
@@ -70,72 +69,73 @@ function showMenu(menuToShow) {
     scoreGraphContainer.classList.add('hidden');
 
     // Afficher le menu sélectionné
+    console.log("Affichage du menu:", menuToShow);  // Log pour vérifier quel menu est affiché
     menuToShow.classList.remove('hidden');
 }
 
-
 // Affichage du graphique
 function displayGraph() {
-    if (window.chart) {  // Si le graphique existe déjà
-        window.chart.data.labels = Array.from({ length: scoreHistory.length }, (_, i) => i + 1);
-        window.chart.data.datasets[0].data = scoreHistory;
-        window.chart.update();  // Met à jour le graphique existant
-    } else {  // Si le graphique n'existe pas, créez-le
-        const ctx = scoreChartElement.getContext('2d');
-        window.chart = new Chart(ctx, {
-            type: 'line', // Type de graphique
-            data: {
-                labels: Array.from({ length: scoreHistory.length }, (_, i) => i + 1),
-                datasets: [{
-                    label: 'Évolution du score',
-                    data: scoreHistory,
-                    borderColor: 'blue',
-                    backgroundColor: 'rgba(0, 0, 255, 0.2)',
-                }],
-            },
-        });
+    if (scoreHistory.length < 2) {
+        alert("Vous devez avoir au moins 2 scores pour afficher le graphique.");
+        return;
     }
 
-    showMenu(scoreGraphContainer);  // Affiche le conteneur du graphique
-}
-
-
-
-// Gestion des clics sur les boutons de sous-menus
-function handleSubMenuButtons(menuElement, buttonClass) {
-    const buttons = menuElement.querySelectorAll(buttonClass);
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            const points = parseInt(button.getAttribute('data-points'), 10);
-            const label = button.textContent;
-            updateScore(points, label);
-        });
+    const ctx = scoreChartElement.getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: buttonHistory,
+            datasets: [{
+                label: 'Évolution du score',
+                data: scoreHistory,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        }
     });
 
-    // Gestion du bouton de retour
-    const backButton = menuElement.querySelector('.backToMenu');
-    if (backButton) {
-        backButton.addEventListener('click', () => showMenu(mainMenu));
-    }
+    // Afficher le conteneur du graphique
+    scoreGraphContainer.classList.remove('hidden');
 }
 
-// Gestion des clics sur les boutons du menu principal
-document.getElementById('showNotesMenu').addEventListener('click', () => showMenu(notesMenu));
-document.getElementById('showLifeMenu').addEventListener('click', () => showMenu(lifeMenu));
+// Gestion des clics sur les boutons du sous-menu
+function handleSubMenuButtons(menu, buttonClass) {
+    const buttons = menu.querySelectorAll(buttonClass);
+    buttons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const points = parseInt(button.dataset.points);
+            updateScore(points, button.textContent); // Mettre à jour le score et l'historique
+            showMenu(mainMenu); // Retourner au menu principal
+        });
+    });
+}
+
+// Événements de clic
+document.getElementById('showNotesMenu').addEventListener('click', () => {
+    console.log("Affichage du menu Notes");
+    showMenu(notesMenu);
+});
+document.getElementById('showLifeMenu').addEventListener('click', () => {
+    console.log("Affichage du menu Vie courante");
+    showMenu(lifeMenu);
+});
 document.getElementById('resetScoreButton').addEventListener('click', () => {
     score = parseInt(prompt("Score initial :", "0")) || 0;
     scoreHistory = [];
     updateScore(0);
 });
-document.getElementById('showGraphButton').addEventListener('click', displayGraph);
-
-// Gestion du bouton pour fermer le graphique
-document.getElementById('closeGraph').addEventListener('click', () => showMenu(mainMenu));
-
-// Initialisation des sous-menus
-// Assurez-vous que le DOM est prêt avant d'ajouter des événements
-document.addEventListener('DOMContentLoaded', () => {
-handleSubMenuButtons(notesMenu, '.noteButton');
-handleSubMenuButtons(lifeMenu, '.lifeButton');
+document.getElementById('showGraphButton').addEventListener('click', () => {
+    console.log("Affichage du graphique");
+    displayGraph();
+});
+document.getElementById('closeGraph').addEventListener('click', () => {
+    scoreGraphContainer.classList.add('hidden');
 });
 
+// Initialisation du DOM
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM chargé et prêt");
+    handleSubMenuButtons(notesMenu, '.noteButton');
+    handleSubMenuButtons(lifeMenu, '.lifeButton');
+});
