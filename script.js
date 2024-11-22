@@ -2,6 +2,7 @@
 let score = 0;
 let scoreHistory = [];
 let buttonHistory = [];
+let scoreChart = null;  // Variable pour le graphique
 
 // Éléments du DOM
 const scoreElement = document.getElementById('score');
@@ -12,6 +13,8 @@ const subMenu = document.getElementById('subMenu');
 const subMenuButtons = document.getElementById('subMenuButtons');
 const mainMenu = document.getElementById('mainMenu');
 const tempMessageContainer = document.getElementById('tempMessageContainer');
+const scoreGraphContainer = document.getElementById('scoreGraphContainer');
+const closeGraphButton = document.getElementById('closeGraph');
 
 // Mise à jour du score
 function updateScore(change = 0, buttonLabel = "") {
@@ -73,3 +76,58 @@ document.getElementById('showLifeMenu').addEventListener('click', () => {
         { label: "Retrouvé le lendemain", points: 1 },
         { label: "Non retrouvé", points: -1 },
         { label: "Non retrouvé au bout de 3 jours", points: -5 },
+    ]);
+});
+
+// Gestion du bouton pour afficher l'évolution du score
+document.getElementById('showGraphButton').addEventListener('click', () => {
+    scoreGraphContainer.classList.remove('hidden'); // Afficher le graphique
+    mainMenu.classList.add('hidden'); // Masquer le menu principal
+
+    // Si le graphique n'a pas encore été créé, le créer
+    if (!scoreChart) {
+        const ctx = document.getElementById('scoreChart').getContext('2d');
+        scoreChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: buttonHistory, // Les labels sont les noms des boutons
+                datasets: [{
+                    label: 'Score',
+                    data: scoreHistory,
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Actions'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Score'
+                        },
+                        min: 0,
+                    }
+                }
+            }
+        });
+    } else {
+        // Si le graphique existe déjà, on met à jour les données
+        scoreChart.data.labels = buttonHistory;
+        scoreChart.data.datasets[0].data = scoreHistory;
+        scoreChart.update();
+    }
+});
+
+// Fermeture du graphique
+closeGraphButton.addEventListener('click', () => {
+    scoreGraphContainer.classList.add('hidden');
+    mainMenu.classList.remove('hidden');
+});
